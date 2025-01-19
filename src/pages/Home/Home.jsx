@@ -1,16 +1,17 @@
 import { Helmet } from 'react-helmet-async'
 // import Plants from '../../components/Home/Plants'
-import logo from '../../assets/images/logo.png'
+// import logo from '../../assets/images/logo.png'
 
 const Home = () => {
   return (
-    <div className='bg-black'>
+    <div className=''>
       <Helmet>
-        <title> PlantNet | Buy Your Desired Plant</title>
+        <title>BloodFlow | Every Drop Counts, Every Life Thrives</title>
       </Helmet>
       {/* <Plants /> */}
       <div>
-        <img src={logo} alt="" />
+        {/* <img src={logo} alt="" /> */}
+       <p className='bg-blood'>this is home</p>
       </div>
     </div>
   )
