@@ -39,7 +39,7 @@ const Navbar = () => {
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink to="/" className={({ isActive }) => isActive ? "font-semibold text-primary" : ""}>
+                            <NavLink to="/blogs" className={({ isActive }) => isActive ? "font-semibold text-primary" : ""}>
                                 Blog
                             </NavLink>
                         </li>
@@ -71,7 +71,7 @@ const Navbar = () => {
                                     </NavLink>
                                 </li>
                                 <li>
-                                    <button onClick={handelLogout} className="btn btn-error btn-sm">
+                                    <button onClick={handelLogout} className="btn bg-blood text-white btn-sm">
                                         Logout
                                     </button>
                                 </li>

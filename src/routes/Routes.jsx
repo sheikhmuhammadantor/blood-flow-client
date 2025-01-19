@@ -6,6 +6,10 @@ import SignUp from '../pages/SignUp/SignUp'
 import MainLayout from '../layouts/MainLayout'
 import PrivateRoute from './PrivateRoute'
 import DashboardLayout from '../layouts/DashboardLayout'
+import ContactUs from '../pages/Home/ContactUs'
+import FeaturedSection from '../pages/Home/FeaturedSection'
+import BlogPage from '../pages/public/Blog'
+import BlogDetails from '../components/Shared/BlogDetails'
 
 export const router = createBrowserRouter([
   {
@@ -16,6 +20,22 @@ export const router = createBrowserRouter([
       {
         path: '/',
         element: <Home />,
+      },
+      {
+        path: '/about-us',
+        element: <FeaturedSection />,
+      },
+      {
+        path: '/contact-us',
+        element: <ContactUs />,
+      },
+      {
+        path: '/blogs',
+        element: <BlogPage />,
+      },
+      {
+        path: '/blogs/:blogTheme',
+        element: <BlogDetails />,
       }
     ],
   },
