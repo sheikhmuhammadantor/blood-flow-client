@@ -2,7 +2,7 @@ import { FaHeartbeat, FaHandsHelping, FaDonate } from "react-icons/fa";
 
 const FeaturedSection = () => {
   return (
-    <div className="bg-base-100 py-16 px-4">
+    <div className="bg-base-100 py-12">
       <div className="text-center mb-12">
         <h2 className="text-4xl font-bold text-blood">Why Choose BloodFlow?</h2>
         <p className="text-gray-600 mt-4 text-lg">

@@ -13,8 +13,7 @@ function Banner() {
                 <div className="max-w-md">
                     <h1 className="mb-5 text-5xl font-bold text-blood">BloodFlow</h1>
                     <p className="mb-8">
-                        {/* Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
-                        quasi. In deleniti eaque aut repudiandae et a id nisi. */}
+                        Empowering lives through safe and easy blood donations. Discover the benefits of joining our community.
                     </p>
                     <Link to='/' className="btn btn-ghost outline outline-2 text-lg text-green-400 sm:mr-4 mb-4 sm:mb-0">Join As a Donor</Link>
                     <Link to='/' className="btn btn-ghost outline outline-2 text-lg text-blood">Search Donors</Link>
