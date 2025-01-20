@@ -6,6 +6,7 @@ import upazilas from "../../../../public/upazilas.json";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import useAuth from "../../../hooks/useAuth";
 import demoUser from "../../../assets/images/demoUser.png";
+import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 
 const ProfilePage = () => {
     const [user, setUser] = useState(null);
@@ -72,10 +73,20 @@ const ProfilePage = () => {
 
         // eslint-disable-next-line no-unused-vars
         const { _id, ...sefFormDate } = formData;
+
+        try {
+            await axiosPublic.put(`user/${authUser?.email}`, sefFormDate);
+            setUser(sefFormDate);
+            setIsEditing(false);
+            toast.success("Profile updated successfully.");
+        } catch (error) {
+            console.log(error);
+            toast.error("Failed to update profile.");
+        }
     };
 
     if (!user) {
-        return <div className="flex justify-center items-center h-screen">Loading...</div>;
+        return <LoadingSpinner />;
     }
 
     return (
@@ -193,24 +204,6 @@ const ProfilePage = () => {
                         </select>
                     </div>
                 </form>
-
-                {/* <div className="mt-6 flex justify-end">
-                    {isEditing ? (
-                        <button
-                            onClick={handleSave}
-                            className="btn btn-success flex items-center space-x-2"
-                        >
-                            <FaSave /> <span>Save</span>
-                        </button>
-                    ) : (
-                        <button
-                            onClick={() => setIsEditing(true)}
-                            className="btn btn-primary flex items-center space-x-2"
-                        >
-                            <FaEdit /> <span>Edit</span>
-                        </button>
-                    )}
-                </div> */}
             </div>
         </div>
     );
