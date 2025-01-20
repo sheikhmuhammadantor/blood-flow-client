@@ -45,7 +45,7 @@ const ContactUs = () => {
                             ></textarea>
                         </div>
                         <div className="form-control mt-4">
-                            <button className="btn  bg-blood">Send Message</button>
+                            <button className="btn text-white bg-blood">Send Message</button>
                         </div>
                     </form>
                 </div>
