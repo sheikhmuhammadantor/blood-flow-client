@@ -11,6 +11,7 @@ import FeaturedSection from '../pages/Home/FeaturedSection'
 import BlogPage from '../pages/public/Blog'
 import BlogDetails from '../components/Shared/BlogDetails'
 import RegistrationForm from '../pages/auth/RegistrationForm'
+import CreateDonationRequest from '../pages/Dashboard/Pages/CreateDonationRequest'
 
 export const router = createBrowserRouter([
   {
@@ -56,6 +57,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <div>Hello</div>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: 'create-donation-request',
+        element: (
+          <PrivateRoute>
+            <CreateDonationRequest />
           </PrivateRoute>
         ),
       }

@@ -91,10 +91,10 @@ const RegistrationForm = () => {
 
             // eslint-disable-next-line no-unused-vars
             const { password, confirmPassword, ...safeFormData } = formData;
-            await axios.post(`${import.meta.env.VITE_API_URL}/users`, safeFormData)
+            const res = await axios.post(`${import.meta.env.VITE_API_URL}/users`, safeFormData);
 
             navigate(from, { replace: true })
-            toast.success("Registration successful!");
+            if (res.data.insertedId) toast.success("Registration successful!");
         } catch (error) {
             console.error("Registration failed:", error);
         }

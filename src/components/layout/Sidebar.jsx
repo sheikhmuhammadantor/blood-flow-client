@@ -58,8 +58,8 @@ const Sidebar = () => {
                     <div className='flex flex-col justify-between flex-1 mt-6'>
                         <ul className="menu bg-base-200 rounded-box space-y-2">
                             <li><NavLink to='/'>a</NavLink></li>
-                            <li><NavLink to='create-donation-request'>Donation Request</NavLink></li>
-                            <li><NavLink to='#'>a</NavLink></li>
+                            <li><NavLink to='create-donation-request'>Create Donation Request</NavLink></li>
+                            <li><NavLink to='/blog'>a</NavLink></li>
                         </ul>
                     </div>
                 </div>
