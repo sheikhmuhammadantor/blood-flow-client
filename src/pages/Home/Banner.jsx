@@ -15,7 +15,7 @@ function Banner() {
                     <p className="mb-8">
                         Empowering lives through safe and easy blood donations. Discover the benefits of joining our community.
                     </p>
-                    <Link to='/' className="btn btn-ghost outline outline-2 text-lg text-green-400 sm:mr-4 mb-4 sm:mb-0">Join As a Donor</Link>
+                    <Link to='/register' className="btn btn-ghost outline outline-2 text-lg text-green-400 sm:mr-4 mb-4 sm:mb-0">Join As a Donor</Link>
                     <Link to='/' className="btn btn-ghost outline outline-2 text-lg text-blood">Search Donors</Link>
                 </div>
             </div>

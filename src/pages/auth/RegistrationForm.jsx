@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import useAuth from "../../hooks/useAuth";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 const RegistrationForm = () => {
     const { createUser, updateUserProfile } = useAuth();
@@ -65,7 +66,7 @@ const RegistrationForm = () => {
         e.preventDefault();
 
         if (formData.password !== formData.confirmPassword) {
-            alert("Passwords do not match!");
+            toast.error("Passwords do not match!");
             return;
         }
 
@@ -79,7 +80,11 @@ const RegistrationForm = () => {
                 formData.avatar,
             );
 
-            alert("Registration successful!");
+            // eslint-disable-next-line no-unused-vars
+            const { password, confirmPassword, ...safeFormData } = formData;
+            await axios.post(`${import.meta.env.VITE_API_URL}/users`, safeFormData)
+
+            toast.success("Registration successful!");
         } catch (error) {
             console.error("Registration failed:", error);
         }
