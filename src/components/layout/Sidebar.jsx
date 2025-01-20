@@ -14,7 +14,7 @@ import logo from '../../assets/images/logo.png'
 import { FaBars } from 'react-icons/fa'
 const Sidebar = () => {
     const { logOut } = useAuth()
-    const [isActive, setActive] = useState(false)
+    const [isActive, setActive] = useState(true)
 
     // Sidebar Responsive Handler
     const handleToggle = () => {
@@ -59,7 +59,7 @@ const Sidebar = () => {
                         <ul className="menu bg-base-200 rounded-box space-y-2">
                             <li><NavLink to='/'>a</NavLink></li>
                             <li><NavLink to='create-donation-request'>Create Donation Request</NavLink></li>
-                            <li><NavLink to='/blog'>a</NavLink></li>
+                            <li><NavLink to='profile'>Profile</NavLink></li>
                         </ul>
                     </div>
                 </div>
