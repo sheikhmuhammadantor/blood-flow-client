@@ -1,8 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom'
 import Home from '../pages/Home/Home'
 import ErrorPage from '../pages/ErrorPage'
-import Login from '../pages/Login/Login'
-import SignUp from '../pages/SignUp/SignUp'
+import Login from '../pages/auth/Login'
+// import SignUp from '../pages/SignUp/SignUp'
 import MainLayout from '../layouts/MainLayout'
 import PrivateRoute from './PrivateRoute'
 import DashboardLayout from '../layouts/DashboardLayout'
@@ -10,6 +10,7 @@ import ContactUs from '../pages/Home/ContactUs'
 import FeaturedSection from '../pages/Home/FeaturedSection'
 import BlogPage from '../pages/public/Blog'
 import BlogDetails from '../components/Shared/BlogDetails'
+import RegistrationForm from '../pages/auth/RegistrationForm'
 
 export const router = createBrowserRouter([
   {
@@ -40,7 +41,8 @@ export const router = createBrowserRouter([
     ],
   },
   { path: '/login', element: <Login /> },
-  { path: '/signup', element: <SignUp /> },
+  { path: '/signup', element: <RegistrationForm /> },
+  // { path: '/signup', element: <SignUp /> },
   {
     path: '/dashboard',
     element: (
