@@ -2,9 +2,14 @@ import { useState, useEffect } from "react";
 import useAuth from "../../hooks/useAuth";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import LoadingSpinner from "../../components/Shared/LoadingSpinner";
 
 const RegistrationForm = () => {
-    const { createUser, updateUserProfile } = useAuth();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location?.state?.from?.pathname || '/';
+    const { user, loading, createUser, updateUserProfile } = useAuth();
     const [districts, setDistricts] = useState([]);
     const [upazilas, setUpazilas] = useState([]);
     const [filteredUpazilas, setFilteredUpazilas] = useState([]);
@@ -18,6 +23,8 @@ const RegistrationForm = () => {
         password: "",
         confirmPassword: "",
     });
+
+
 
     // Load district and upazila data
     useEffect(() => {
@@ -61,6 +68,8 @@ const RegistrationForm = () => {
         }
     };
 
+    if (user) return <Navigate to={from} replace={true} />
+    if (loading) return <LoadingSpinner />
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -84,6 +93,7 @@ const RegistrationForm = () => {
             const { password, confirmPassword, ...safeFormData } = formData;
             await axios.post(`${import.meta.env.VITE_API_URL}/users`, safeFormData)
 
+            navigate(from, { replace: true })
             toast.success("Registration successful!");
         } catch (error) {
             console.error("Registration failed:", error);
@@ -93,7 +103,7 @@ const RegistrationForm = () => {
     return (
         <div className="flex justify-center items-center min-h-screen bg-gray-100">
             <div className="w-full max-w-md p-6 bg-white shadow-lg rounded-lg">
-                <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">Register</h2>
+                <h2 className="text-2xl font-bold text-center mb-6 text-blood">Register</h2>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <input
                         type="email"
@@ -179,7 +189,7 @@ const RegistrationForm = () => {
                         required
                         className="input input-bordered w-full"
                     />
-                    <button type="submit" className="btn btn-primary w-full">
+                    <button type="submit" className="btn bg-blood text-white w-full">
                         Register
                     </button>
                 </form>
