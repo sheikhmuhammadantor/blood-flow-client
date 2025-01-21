@@ -1,22 +1,23 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 import { loadStripe } from "@stripe/stripe-js";
-import { Elements, CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
 import { format } from "date-fns";
 import PaymentForm from "./PaymentForm";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const stripePromise = loadStripe("your-publishable-key-here");
 
 const FundingPage = () => {
   const { user } = useAuth();
-  const [funds, setFunds] = useState([1,2]);
+  const [funds, setFunds] = useState([]);
   const [showPaymentForm, setShowPaymentForm] = useState(false);
+  const axiosPublic = useAxiosPublic();
 
   useEffect(() => {
     const fetchFunds = async () => {
       try {
-        const { data } = await axios.get("/funds");
+        const { data } = await axiosPublic("/funds");
         setFunds(data);
       } catch (error) {
         console.error("Error fetching funds:", error);
@@ -57,14 +58,12 @@ const FundingPage = () => {
             </tr>
           </thead>
           <tbody>
-            {/* {funds?.map((fund, index) => ( */}
-            {[1,2]?.map((fund, index) => (
+            {funds?.map((fund, index) => (
               <tr key={fund?._id}>
                 <td>{index + 1}</td>
-                <td>{fund.userName}</td>
-                <td>${fund.amount}</td>
-                {/* <td>{format(new Date(fund?.date), "PPP")}</td> */}
-                {/* <td>{format(new Date(fund?.date), "PPP")}</td> */}
+                <td>{fund.sponsorName}</td>
+                <td>${fund.fundAmount}</td>
+                <td>{format(new Date(fund?.fundDate), "PPP")}</td>
               </tr>
             ))}
           </tbody>

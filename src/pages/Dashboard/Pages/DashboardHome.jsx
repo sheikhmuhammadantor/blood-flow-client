@@ -135,7 +135,6 @@ const DashboardHome = () => {
                                             onClick={() => handleDelete(request._id)}
                                         >
                                             <FaTrash />
-                                            {console.log(request._id)}
                                         </button>
                                         <button
                                             className="btn btn-sm btn-info text-white"

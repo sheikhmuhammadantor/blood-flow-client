@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import useAxiosPublic from '../../../hooks/useAxiosPublic';
+import toast from 'react-hot-toast';
 
 
 const EditDonationRequest = () => {
@@ -71,7 +72,7 @@ const EditDonationRequest = () => {
         // Send a PUT request to update the donation request
         axiosPublic.put(`/api/donation-requests/${id}`, formData)
             .then(() => {
-                alert('Donation request updated successfully!');
+                toast.success('Donation request updated successfully!');
                 navigate('/'); // Redirect to the homepage or requests list
             })
             .catch((error) => console.error('Error updating donation request:', error));

@@ -2,6 +2,7 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useState } from "react";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import PropTypes from "prop-types";
+import toast from "react-hot-toast";
 
 const PaymentForm = ({ user, setShowPaymentForm }) => {
     const stripe = useStripe();
@@ -43,7 +44,7 @@ const PaymentForm = ({ user, setShowPaymentForm }) => {
                 fundDate: new Date(),
             });
 
-            alert("Payment successful! Thank you for your support.");
+            toast.success("Payment successful! Thank you for your support.");
             setShowPaymentForm(false);
         } catch (error) {
             console.error("Error processing payment:", error);
