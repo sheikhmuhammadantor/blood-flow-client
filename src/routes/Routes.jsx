@@ -16,6 +16,7 @@ import ProfilePage from '../pages/Dashboard/Pages/Profile'
 import DashboardHome from '../pages/Dashboard/Pages/DashboardHome'
 import DonationRequestDetails from '../pages/Dashboard/Pages/DonationDetaiols'
 import DonationRequestEdit from '../pages/Dashboard/Pages/DonationRequestEdit'
+import SearchPage from '../pages/public/SearchDonor'
 
 export const router = createBrowserRouter([
   {
@@ -42,7 +43,11 @@ export const router = createBrowserRouter([
       {
         path: '/blogs/:blogTheme',
         element: <BlogDetails />,
-      }
+      },
+      {
+        path: '/search-donor',
+        element: <SearchPage />,
+      },
     ],
   },
   { path: '/login', element: <Login /> },
