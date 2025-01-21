@@ -13,6 +13,7 @@ import BlogDetails from '../components/Shared/BlogDetails'
 import RegistrationForm from '../pages/auth/RegistrationForm'
 import CreateDonationRequest from '../pages/Dashboard/Pages/CreateDonationRequest'
 import ProfilePage from '../pages/Dashboard/Pages/Profile'
+import DashboardHome from '../pages/Dashboard/Pages/DashboardHome'
 
 export const router = createBrowserRouter([
   {
@@ -57,7 +58,7 @@ export const router = createBrowserRouter([
         index: true,
         element: (
           <PrivateRoute>
-            <div>Hello</div>
+            <DashboardHome />
           </PrivateRoute>
         ),
       },
