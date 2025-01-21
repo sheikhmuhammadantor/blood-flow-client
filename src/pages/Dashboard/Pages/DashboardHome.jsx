@@ -126,7 +126,7 @@ const DashboardHome = () => {
                                     <td className="border px-4 py-2 space-x-2 flex flex-col items-center gap-1 justify-center lg:flex-row lg:gap-0">
                                         <button
                                             className="btn btn-sm bg-lightGreen text-white"
-                                            onClick={() => navigate(`/edit-donation-request/${request._id}`)}
+                                            onClick={() => navigate(`edit-donation-request/${request._id}`)}
                                         >
                                             <FaEdit />
                                         </button>
