@@ -14,6 +14,7 @@ import RegistrationForm from '../pages/auth/RegistrationForm'
 import CreateDonationRequest from '../pages/Dashboard/Pages/CreateDonationRequest'
 import ProfilePage from '../pages/Dashboard/Pages/Profile'
 import DashboardHome from '../pages/Dashboard/Pages/DashboardHome'
+import DonationRequestDetails from '../pages/Dashboard/Pages/DonationDetaiols'
 
 export const router = createBrowserRouter([
   {
@@ -59,6 +60,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <DashboardHome />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: 'donation-request/:id',
+        element: (
+          <PrivateRoute>
+            <DonationRequestDetails />
           </PrivateRoute>
         ),
       },

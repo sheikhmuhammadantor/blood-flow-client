@@ -25,7 +25,7 @@ const DashboardHome = () => {
         if (user?.email) {
             fetchRequests();
         }
-    }, [user?.email]);
+    }, [user]);
 
     const handleStatusChange = async (id, status) => {
         try {
@@ -139,7 +139,7 @@ const DashboardHome = () => {
                                         </button>
                                         <button
                                             className="btn btn-sm btn-info text-white"
-                                            onClick={() => navigate(`/donation-request/${request._id}`)}
+                                            onClick={() => navigate(`donation-request/${request._id}`)}
                                         >
                                             <FaEye />
                                         </button>
