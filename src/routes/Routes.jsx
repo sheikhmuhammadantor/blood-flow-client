@@ -17,6 +17,7 @@ import DashboardHome from '../pages/Dashboard/Pages/DashboardHome'
 import DonationRequestDetails from '../pages/Dashboard/Pages/DonationDetaiols'
 import DonationRequestEdit from '../pages/Dashboard/Pages/DonationRequestEdit'
 import SearchPage from '../pages/public/SearchDonor'
+import BloodDonationRequests from '../pages/public/DonationRequest'
 
 export const router = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ export const router = createBrowserRouter([
       {
         path: '/search-donor',
         element: <SearchPage />,
+      },
+      {
+        path: '/donation-requests',
+        element: <BloodDonationRequests />,
       },
     ],
   },
