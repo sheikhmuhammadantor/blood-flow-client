@@ -1,21 +1,32 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-hot-toast";
 import { FaEdit, FaSave } from "react-icons/fa";
-import districts from "../../../../public/districts.json";
-import upazilas from "../../../../public/upazilas.json";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import useAuth from "../../../hooks/useAuth";
 import demoUser from "../../../assets/images/demoUser.png";
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
+import axios from "axios";
 
 const ProfilePage = () => {
     const [user, setUser] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
     const [formData, setFormData] = useState({});
+    const [districts, setDistricts] = useState([]);
+    const [upazilas, setUpazilas] = useState([]);
     const [filteredUpazilas, setFilteredUpazilas] = useState([]);
     const { user: authUser } = useAuth();
     const axiosPublic = useAxiosPublic();
     const imgbbApiKey = `${import.meta.env.VITE_IMAGE_HOSTING_KEY}`;
+
+    useEffect(() => {
+        const loadGeoData = async () => {
+            const districtData = await axios("/districts.json");
+            const upazilaData = await axios("/upazilas.json");
+            setDistricts(districtData.data);
+            setUpazilas(upazilaData.data);
+        };
+        loadGeoData();
+    }, []);
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -24,7 +35,7 @@ const ProfilePage = () => {
                 setUser(response.data);
                 setFormData(response.data);
                 // console.log(response.data);
-                const upazilasForDistrict = upazilas.filter(
+                const upazilasForDistrict = upazilas?.filter(
                     (u) => u.district_id === response.data.district
                 );
                 setFilteredUpazilas(upazilasForDistrict);
@@ -41,7 +52,7 @@ const ProfilePage = () => {
         setFormData({ ...formData, [name]: value });
 
         if (name === "district") {
-            const updatedUpazilas = upazilas.filter(
+            const updatedUpazilas = upazilas?.filter(
                 (u) => u.district_id === value
             );
             setFilteredUpazilas(updatedUpazilas);
@@ -179,7 +190,7 @@ const ProfilePage = () => {
                             disabled={!isEditing}
                         >
                             <option value="">Select District</option>
-                            {districts.map((district) => (
+                            {districts?.map((district) => (
                                 <option key={district.id} value={district.id}>
                                     {district.name}
                                 </option>
@@ -196,9 +207,9 @@ const ProfilePage = () => {
                             disabled={!isEditing}
                         >
                             <option value="">Select Upazila</option>
-                            {filteredUpazilas.map((upazila) => (
-                                <option key={upazila.id} value={upazila.id}>
-                                    {upazila.name}
+                            {filteredUpazilas?.map((upazila) => (
+                                <option key={upazila?.id} value={upazila?.id}>
+                                    {upazila?.name}
                                 </option>
                             ))}
                         </select>

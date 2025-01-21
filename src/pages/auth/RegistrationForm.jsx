@@ -112,7 +112,7 @@ const RegistrationForm = () => {
                         value={formData.email}
                         onChange={handleInputChange}
                         required
-                        className="input input-bordered w-full"
+                        className="input input-bordered w-full focus:outline-blood bg-gray-200"
                     />
                     <input
                         type="text"
@@ -121,21 +121,21 @@ const RegistrationForm = () => {
                         value={formData.name}
                         onChange={handleInputChange}
                         required
-                        className="input input-bordered w-full"
+                        className="input input-bordered w-full focus:outline-blood bg-gray-200"
                     />
                     <input
                         type="file"
                         name="avatar"
                         accept="image/*"
                         onChange={handleAvatarUpload}
-                        className="file-input file-input-bordered w-full"
+                        className="file-input file-input-bordered w-full focus:outline-blood bg-gray-200"
                     />
                     <select
                         name="bloodGroup"
                         value={formData.bloodGroup}
                         onChange={handleInputChange}
                         required
-                        className="select select-bordered w-full"
+                        className="select select-bordered w-full focus:outline-blood bg-gray-200"
                     >
                         <option value="A+">A+</option>
                         <option value="A-">A-</option>
@@ -151,7 +151,7 @@ const RegistrationForm = () => {
                         value={formData.district}
                         onChange={handleInputChange}
                         required
-                        className="select select-bordered w-full"
+                        className="select select-bordered w-full focus:outline-blood bg-gray-200"
                     >
                         <option value="">Select District</option>
                         {districts.map((district) => (
@@ -165,7 +165,7 @@ const RegistrationForm = () => {
                         value={formData.upazila}
                         onChange={handleInputChange}
                         required
-                        className="select select-bordered w-full"
+                        className="select select-bordered w-full focus:outline-blood bg-gray-200"
                     >
                         <option value="">Select Upazila</option>
                         {filteredUpazilas.map((upazila) => (
@@ -181,7 +181,7 @@ const RegistrationForm = () => {
                         value={formData.password}
                         onChange={handleInputChange}
                         required
-                        className="input input-bordered w-full"
+                        className="input input-bordered w-full focus:outline-blood bg-gray-200"
                     />
                     <input
                         type="password"
@@ -190,7 +190,7 @@ const RegistrationForm = () => {
                         value={formData.confirmPassword}
                         onChange={handleInputChange}
                         required
-                        className="input input-bordered w-full"
+                        className="input input-bordered w-full focus:outline-blood bg-gray-200"
                     />
                     <button type="submit" className="btn bg-blood text-white w-full">
                         Register
