@@ -22,6 +22,7 @@ import FundingPage from '../pages/Funding/Funding'
 import MyDonationRequests from '../pages/Dashboard/Pages/MyAllDonationRequest'
 import AllDonationRequests from '../pages/Dashboard/Pages/AllDonationRequest'
 import AllUsers from '../pages/Dashboard/Admin/AllUser'
+import AddBlog from '../pages/Dashboard/Admin/AddBlog'
 
 export const router = createBrowserRouter([
   {
@@ -119,6 +120,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <CreateDonationRequest />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: 'content-management/add-blog',
+        element: (
+          <PrivateRoute>
+            <AddBlog />
           </PrivateRoute>
         ),
       },
