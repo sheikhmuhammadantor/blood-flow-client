@@ -48,11 +48,11 @@ const Sidebar = () => {
                     {/* Nav Items */}
                     <div className='flex flex-col justify-between flex-1 mt-6'>
                         <ul className="menu bg-base-200 rounded-box space-y-2">
-                            <li><NavLink to='profile'>Profile</NavLink></li>
-                            <li><NavLink to='my-donation-requests'>My Donation Request</NavLink></li>
-                            <li><NavLink to='all-blood-donation-request'>All Donation Request</NavLink></li>
-                            <li><NavLink to='create-donation-request'>Create Donation Request</NavLink></li>
-                            <li><NavLink to='all-user'>All User</NavLink></li>
+                            <li className='border border-blood rounded-xl'><NavLink to='profile'>Profile</NavLink></li>
+                            <li className='border border-blood rounded-xl'><NavLink to='my-donation-requests'>My Donation Request</NavLink></li>
+                            <li className='border border-blood rounded-xl'><NavLink to='all-blood-donation-request'>All Donation Request</NavLink></li>
+                            <li className='border border-blood rounded-xl'><NavLink to='create-donation-request'>Create Donation Request</NavLink></li>
+                            <li className='border border-blood rounded-xl'><NavLink to='all-user'>All User</NavLink></li>
                         </ul>
                     </div>
                 </div>

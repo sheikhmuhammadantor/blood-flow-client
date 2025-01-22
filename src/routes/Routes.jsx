@@ -21,6 +21,7 @@ import BloodDonationRequests from '../pages/public/DonationRequest'
 import FundingPage from '../pages/Funding/Funding'
 import MyDonationRequests from '../pages/Dashboard/Pages/MyAllDonationRequest'
 import AllDonationRequests from '../pages/Dashboard/Pages/AllDonationRequest'
+import AllUsers from '../pages/Dashboard/Admin/AllUser'
 
 export const router = createBrowserRouter([
   {
@@ -126,6 +127,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <ProfilePage />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: 'all-user',
+        element: (
+          <PrivateRoute>
+            <AllUsers />
           </PrivateRoute>
         ),
       }
