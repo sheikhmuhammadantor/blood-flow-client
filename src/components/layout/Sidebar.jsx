@@ -1,28 +1,19 @@
-import { useState } from 'react'
-import { GrLogout } from 'react-icons/gr'
-// import { FcSettings } from 'react-icons/fc'
-// import { BsGraphUp } from 'react-icons/bs'
-// import MenuItem from './Menu/MenuItem'
+import { useState } from 'react';
+import { GrLogout } from 'react-icons/gr';
+import useAuth from '../../hooks/useAuth';
+import { Link, NavLink } from 'react-router-dom';
+import logo from '../../assets/images/logo.png';
+import { FaBars } from 'react-icons/fa';
 
-import useAuth from '../../hooks/useAuth'
-
-// import AdminMenu from './Menu/AdminMenu'
-import { Link, NavLink } from 'react-router-dom'
-// import SellerMenu from './Menu/SellerMenu'
-// import CustomerMenu from './Menu/CustomerMenu'
-import logo from '../../assets/images/logo.png'
-import { FaBars } from 'react-icons/fa'
 const Sidebar = () => {
     const { logOut } = useAuth()
     const [isActive, setActive] = useState(true)
 
-    // Sidebar Responsive Handler
     const handleToggle = () => {
         setActive(!isActive)
     }
     return (
         <aside>
-            {/* Small Screen Navbar */}
             <div className='bg-gray-100 text-gray-800 flex justify-between md:hidden'>
                 <div>
                     <div className='block cursor-pointer p-4 font-bold'>
