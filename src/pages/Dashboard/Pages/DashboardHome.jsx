@@ -82,7 +82,7 @@ const DashboardHome = () => {
 
             {/* Recent Donation Requests Section */}
             {donationRequests.length > 0 ? (
-                <div>
+                <div className="overflow-x-auto">
                     <h2 className="text-xl font-semibold mb-4">Recent Donation Requests</h2>
                     <table className="table-auto w-full border-collapse border border-gray-200">
                         <thead>
@@ -106,7 +106,7 @@ const DashboardHome = () => {
                                     <td className="border px-4 py-2">{new Date(request.donationDate).toLocaleDateString()}</td>
                                     <td className="border px-4 py-2">{request.donationTime}</td>
                                     <td className="border px-4 py-2">{request.bloodGroup}</td>
-                                    <td className="border px-4 py-2">
+                                    <td className="border px-4 py-2 capitalize">
                                         {request.donationStatus === "inprogress" ? (
                                             <select
                                                 className="select select-bordered"
@@ -155,7 +155,7 @@ const DashboardHome = () => {
             {/* View All Requests Button */}
             <div>
                 <Link
-                    to="/my-donation-requests"
+                    to="my-donation-requests"
                     className="btn bg-blood text-white mt-4"
                 >
                     View My All Requests

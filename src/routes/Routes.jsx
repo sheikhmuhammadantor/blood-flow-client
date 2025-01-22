@@ -19,6 +19,7 @@ import DonationRequestEdit from '../pages/Dashboard/Pages/DonationRequestEdit'
 import SearchPage from '../pages/public/SearchDonor'
 import BloodDonationRequests from '../pages/public/DonationRequest'
 import FundingPage from '../pages/Funding/Funding'
+import MyDonationRequests from '../pages/Dashboard/Pages/MyAllDonationRequest'
 
 export const router = createBrowserRouter([
   {
@@ -76,6 +77,14 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <DashboardHome />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: 'my-donation-requests',
+        element: (
+          <PrivateRoute>
+            <MyDonationRequests />
           </PrivateRoute>
         ),
       },
