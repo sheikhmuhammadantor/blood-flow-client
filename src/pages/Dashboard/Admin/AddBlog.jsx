@@ -4,6 +4,7 @@ import JoditEditor from "jodit-react";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
+// import { console } from "inspector";
 
 const AddBlog = () => {
   const [title, setTitle] = useState("");
@@ -60,21 +61,45 @@ const { data: blogs = [], refetch } = useQuery({
 //   );
 
 
+// const createBlogMutation = useMutation({
+//     mutationFn: async (blogData) => {
+//       console.log(blogData);
+//       await axiosPublic.post(`/blogs`, blogData);
+//     },
+//     onSuccess: () => {
+//       toast.success("Blog created successfully!");
+//       refetch();
+//       // setTitle("");
+//       // setThumbnail(null);
+//       // setContent("");
+//     },
+//     onError: (err) => {
+//       console.log(err);
+//       // toast.error("Failed to create blog.");
+//     },
+//   });
+
 const createBlogMutation = useMutation({
-    mutationFn: async (blogData) => {
-      await axiosPublic.post(`/blogs`, blogData);
-    },
-    onSuccess: () => {
-      toast.success("Blog created successfully!");
-      refetch(); // Refresh the blogs after successful creation
-      setTitle("");
-      setThumbnail(null);
-      setContent("");
-    },
-    onError: () => {
-      toast.error("Failed to create blog.");
-    },
-  });
+  mutationFn: async (blogData) => {
+    console.log("Sending blog data:", blogData); // Log the payload
+    const response = await axiosPublic.post(`/blogs`, blogData);
+    console.log("Response from server:", response.data); // Log the response
+    return response.data;
+  },
+  onSuccess: () => {
+    toast.success("Blog created successfully!");
+    refetch(); // Refetch the blogs
+  },
+  // onError: (err) => {
+  //   console.error("Error creating blog:", err?.response?.data || err.message);
+  //   toast.error(err?.response?.data?.message || "Failed to create blog.");
+  // },
+  onError: (err) => {
+    console.error("Error details:", err);
+    toast.error(err?.response?.data?.message || "Failed to create blog.");
+  },
+});
+
   
 
   const handleThumbnailUpload = async (e) => {
@@ -84,7 +109,7 @@ const createBlogMutation = useMutation({
 
     try {
       const { data } = await axiosPublic.post(
-        `https://api.imgbb.com/1/upload?key=YOUR_IMAGEBB_API_KEY`,
+        `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMAGE_HOSTING_KEY}`,
         formData
       );
       setThumbnail(data.data.url);
@@ -95,14 +120,28 @@ const createBlogMutation = useMutation({
     }
   };
 
+  // const handleCreateBlog = (e) => {
+  //   e.preventDefault();
+  //   if (!title || !thumbnail || !content) {
+  //     toast.error("Please fill out all fields.");
+  //     return;
+  //   }
+  //   createBlogMutation.mutate({ title: 'title', thumbnail: 'thumbnail', content: 'content', status: "draft" });
+  // };
+
   const handleCreateBlog = (e) => {
     e.preventDefault();
     if (!title || !thumbnail || !content) {
       toast.error("Please fill out all fields.");
       return;
     }
-    createBlogMutation.mutate({ title, thumbnail, content, status: "draft" });
-  };
+    // createBlogMutation.mutate({ title, thumbnail, content});
+    createBlogMutation.mutate({ 
+      title,
+      thumbnail,
+      content
+    });
+  };  
 
   const handleStatusChange = async (id, newStatus) => {
     try {
