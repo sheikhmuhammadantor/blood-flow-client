@@ -4,10 +4,14 @@ import useAuth from '../../hooks/useAuth';
 import { Link, NavLink } from 'react-router-dom';
 import logo from '../../assets/images/logo.png';
 import { FaBars } from 'react-icons/fa';
+import useRole from '../../hooks/useRole';
 
 const Sidebar = () => {
-    const { logOut } = useAuth()
-    const [isActive, setActive] = useState(true)
+    const { logOut } = useAuth();
+    const [isActive, setActive] = useState(true);
+    const { role } = useRole();
+
+    console.log(role);
 
     const handleToggle = () => {
         setActive(!isActive)
@@ -52,7 +56,7 @@ const Sidebar = () => {
                             <li className='border border-blood rounded-xl'><NavLink to='my-donation-requests'>My Donation Request</NavLink></li>
                             <li className='border border-blood rounded-xl'><NavLink to='all-blood-donation-request'>All Donation Request</NavLink></li>
                             <li className='border border-blood rounded-xl'><NavLink to='create-donation-request'>Create Donation Request</NavLink></li>
-                            <li className='border border-blood rounded-xl'><NavLink to='all-user'>All User</NavLink></li>
+                            {(role === 'admin' || role === 'volunteer') && <li className='border border-blood rounded-xl'><NavLink to='all-user'>All User</NavLink></li>}
                             <li className='border border-blood rounded-xl'><NavLink to='content-management/add-blog'>Add Blog</NavLink></li>
                         </ul>
                     </div>

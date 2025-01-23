@@ -23,6 +23,7 @@ import MyDonationRequests from '../pages/Dashboard/Pages/MyAllDonationRequest'
 import AllDonationRequests from '../pages/Dashboard/Pages/AllDonationRequest'
 import AllUsers from '../pages/Dashboard/Admin/AllUser'
 import AddBlog from '../pages/Dashboard/Admin/AddBlog'
+import AdminRoute from './AdminRoute'
 
 export const router = createBrowserRouter([
   {
@@ -143,7 +144,9 @@ export const router = createBrowserRouter([
         path: 'all-user',
         element: (
           <PrivateRoute>
+            <AdminRoute>
             <AllUsers />
+            </AdminRoute>
           </PrivateRoute>
         ),
       }
