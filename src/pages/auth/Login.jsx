@@ -1,8 +1,6 @@
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom'
-// import { FcGoogle } from 'react-icons/fc'
 import useAuth from '../../hooks/useAuth'
 import toast from 'react-hot-toast'
-// import { TbFidgetSpinner } from 'react-icons/tb'
 import LoadingSpinner from '../../components/Shared/LoadingSpinner'
 
 const Login = () => {
@@ -10,9 +8,10 @@ const Login = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const from = location?.state?.from?.pathname || '/'
+
   if (user) return <Navigate to={from} replace={true} />
   if (loading) return <LoadingSpinner />
-  // form submit handler
+
   const handleSubmit = async event => {
     event.preventDefault()
     const form = event.target
@@ -20,7 +19,6 @@ const Login = () => {
     const password = form.password.value
 
     try {
-      //User Login
       await signIn(email, password)
       navigate(from, { replace: true })
       toast.success('Login Successful')
@@ -72,6 +70,7 @@ const Login = () => {
                 name='password'
                 id='password'
                 required
+                autoComplete='current-password'
                 placeholder='*******'
                 className='w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-blood bg-gray-200 text-gray-900'
               />

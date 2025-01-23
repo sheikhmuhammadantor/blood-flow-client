@@ -4,7 +4,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import { format } from "date-fns";
 import PaymentForm from "./PaymentForm";
-import useAxiosPublic from "../../hooks/useAxiosPublic";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const stripePromise = loadStripe("your-publishable-key-here");
 
@@ -12,12 +12,12 @@ const FundingPage = () => {
   const { user } = useAuth();
   const [funds, setFunds] = useState([]);
   const [showPaymentForm, setShowPaymentForm] = useState(false);
-  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
 
   useEffect(() => {
     const fetchFunds = async () => {
       try {
-        const { data } = await axiosPublic("/funds");
+        const { data } = await axiosSecure("/funds");
         setFunds(data);
       } catch (error) {
         console.error("Error fetching funds:", error);
@@ -35,7 +35,7 @@ const FundingPage = () => {
     <div className="p-6 space-y-6">
       <h1 className="text-2xl font-semibold">Funding Page</h1>
       <button
-        className="btn btn-primary mb-4"
+        className="btn bg-blood text-white mb-4"
         onClick={handleGiveFund}
       >
         Give Fund

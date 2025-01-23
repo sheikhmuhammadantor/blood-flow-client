@@ -1,12 +1,10 @@
 /* eslint-disable react/prop-types */
 import { createContext, useEffect, useState } from 'react'
 import {
-  GoogleAuthProvider,
   createUserWithEmailAndPassword,
   getAuth,
   onAuthStateChanged,
   signInWithEmailAndPassword,
-  signInWithPopup,
   signOut,
   updateProfile,
 } from 'firebase/auth'
@@ -16,7 +14,6 @@ import axios from 'axios'
 // eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext(null)
 const auth = getAuth(app)
-const googleProvider = new GoogleAuthProvider()
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null)
@@ -30,11 +27,6 @@ const AuthProvider = ({ children }) => {
   const signIn = (email, password) => {
     setLoading(true)
     return signInWithEmailAndPassword(auth, email, password)
-  }
-
-  const signInWithGoogle = () => {
-    setLoading(true)
-    return signInWithPopup(auth, googleProvider)
   }
 
   const logOut = async () => {
@@ -57,13 +49,17 @@ const AuthProvider = ({ children }) => {
         setUser(currentUser)
 
         // Get JWT token
-        await axios.post(
+        const res = await axios.post(
           `${import.meta.env.VITE_API_URL}/jwt`,
           {
             email: currentUser?.email,
           },
           { withCredentials: true }
         )
+
+        if (res?.data.token) {
+          localStorage.setItem('access-token', res?.data.token)
+        }
       } else {
         setUser(currentUser)
         await axios.get(`${import.meta.env.VITE_API_URL}/logout`, {
@@ -84,13 +80,14 @@ const AuthProvider = ({ children }) => {
     setLoading,
     createUser,
     signIn,
-    signInWithGoogle,
     logOut,
     updateUserProfile,
   }
 
   return (
-    <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={authInfo}>
+      {children}
+    </AuthContext.Provider>
   )
 }
 

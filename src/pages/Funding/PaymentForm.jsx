@@ -74,7 +74,7 @@ const PaymentForm = ({ user, setShowPaymentForm }) => {
 
             <button
                 type="submit"
-                className={`btn btn-primary w-full ${loading && "loading"}`}
+                className={`btn bg-blood text-white w-full ${loading && "loading"}`}
                 disabled={!stripe || loading}
             >
                 {loading ? "Processing..." : "Pay Now"}
@@ -83,7 +83,6 @@ const PaymentForm = ({ user, setShowPaymentForm }) => {
     );
 };
 
-// props validation
 PaymentForm.propTypes = {
     user: PropTypes.object.isRequired,
     setShowPaymentForm: PropTypes.func.isRequired,
