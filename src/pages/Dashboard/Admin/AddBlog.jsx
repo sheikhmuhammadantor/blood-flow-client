@@ -4,7 +4,6 @@ import JoditEditor from "jodit-react";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
-// import { console } from "inspector";
 
 const AddBlog = () => {
   const [title, setTitle] = useState("");
@@ -13,24 +12,7 @@ const AddBlog = () => {
   const [filter, setFilter] = useState("");
   const axiosPublic = useAxiosPublic();
 
-//   const { data: blogs = [], refetch } = useQuery(["blogs", filter], async () => {
-//     const { data } = await axios.get(`/blogs`, {
-//       params: { status: filter },
-//     });
-//     return data;
-//   });
-
-// const { data: blogs = [], refetch } = useQuery({
-//     queryKey: ["blogs", filter], // Query key includes the filter
-//     queryFn: async () => {
-//       const { data } = await axiosPublic.get(`/blogs`, {
-//         params: { status: filter }, // Send filter as a query parameter
-//       });
-//       return data; // Return the response data
-//     },
-//   });
-
-const { data: blogs = [], refetch } = useQuery({
+  const { data: blogs = [], refetch } = useQuery({
     queryKey: ["blogs", filter],
     queryFn: async () => {
       const { data } = await axiosPublic.get(`/blogs`, {
@@ -39,68 +21,25 @@ const { data: blogs = [], refetch } = useQuery({
       return data;
     },
   });
-  
-  
 
-//   const createBlogMutation = useMutation(
-//     async (blogData) => {
-//       await axiosPublic.post(`/blogs`, blogData);
-//     },
-//     {
-//       onSuccess: () => {
-//         toast.success("Blog created successfully!");
-//         refetch();
-//         setTitle("");
-//         setThumbnail(null);
-//         setContent("");
-//       },
-//       onError: () => {
-//         toast.error("Failed to create blog.");
-//       },
-//     }
-//   );
+  const createBlogMutation = useMutation({
+    mutationFn: async (blogData) => {
+      console.log("Sending blog data:", blogData);
+      const response = await axiosPublic.post(`/blogs`, blogData);
+      console.log("Response from server:", response.data);
+      return response.data;
+    },
+    onSuccess: () => {
+      toast.success("Blog created successfully!");
+      refetch();
+    },
+    onError: (err) => {
+      console.error("Error details:", err);
+      toast.error(err?.response?.data?.message || "Failed to create blog.");
+    },
+  });
 
 
-// const createBlogMutation = useMutation({
-//     mutationFn: async (blogData) => {
-//       console.log(blogData);
-//       await axiosPublic.post(`/blogs`, blogData);
-//     },
-//     onSuccess: () => {
-//       toast.success("Blog created successfully!");
-//       refetch();
-//       // setTitle("");
-//       // setThumbnail(null);
-//       // setContent("");
-//     },
-//     onError: (err) => {
-//       console.log(err);
-//       // toast.error("Failed to create blog.");
-//     },
-//   });
-
-const createBlogMutation = useMutation({
-  mutationFn: async (blogData) => {
-    console.log("Sending blog data:", blogData); // Log the payload
-    const response = await axiosPublic.post(`/blogs`, blogData);
-    console.log("Response from server:", response.data); // Log the response
-    return response.data;
-  },
-  onSuccess: () => {
-    toast.success("Blog created successfully!");
-    refetch(); // Refetch the blogs
-  },
-  // onError: (err) => {
-  //   console.error("Error creating blog:", err?.response?.data || err.message);
-  //   toast.error(err?.response?.data?.message || "Failed to create blog.");
-  // },
-  onError: (err) => {
-    console.error("Error details:", err);
-    toast.error(err?.response?.data?.message || "Failed to create blog.");
-  },
-});
-
-  
 
   const handleThumbnailUpload = async (e) => {
     const file = e.target.files[0];
@@ -115,41 +54,26 @@ const createBlogMutation = useMutation({
       setThumbnail(data.data.url);
       toast.success("Thumbnail uploaded successfully!");
     } catch (error) {
-        console.log(error);
+      console.log(error);
       toast.error("Failed to upload thumbnail.");
     }
   };
 
-  // const handleCreateBlog = (e) => {
-  //   e.preventDefault();
-  //   if (!title || !thumbnail || !content) {
-  //     toast.error("Please fill out all fields.");
-  //     return;
-  //   }
-  //   createBlogMutation.mutate({ title: 'title', thumbnail: 'thumbnail', content: 'content', status: "draft" });
-  // };
-
   const handleCreateBlog = (e) => {
     e.preventDefault();
-    if (!title || !thumbnail || !content) {
-      toast.error("Please fill out all fields.");
-      return;
+    if (!title || !content) {
+      return toast.error("Please fill out all fields.");
     }
-    // createBlogMutation.mutate({ title, thumbnail, content});
-    createBlogMutation.mutate({ 
-      title,
-      thumbnail,
-      content
-    });
-  };  
+    createBlogMutation.mutate({ title, thumbnail, content });
+  };
 
   const handleStatusChange = async (id, newStatus) => {
     try {
-      await axiosPublic.patch(`/blogs/${id}/status`, { status: newStatus });
+      await axiosPublic.patch(`/blogs/${id}`, { status: newStatus });
       toast.success(`Blog status updated to ${newStatus}`);
       refetch();
     } catch (error) {
-        console.log(error);
+      console.log(error);
       toast.error("Failed to update blog status.");
     }
   };
@@ -165,11 +89,11 @@ const createBlogMutation = useMutation({
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await axiosPublic.delete(`/blogs/${id}`);
+          await axiosPublic.delete(`/blog/${id}`);
           toast.success("Blog deleted successfully!");
           refetch();
         } catch (error) {
-            console.log(error);
+          console.log(error);
           toast.error("Failed to delete blog.");
         }
       }
@@ -207,7 +131,7 @@ const createBlogMutation = useMutation({
           <JoditEditor value={content} onChange={setContent} />
         </div>
 
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn bg-blood text-white">
           Create Blog
         </button>
       </form>
@@ -242,7 +166,7 @@ const createBlogMutation = useMutation({
                 {blog.status === "draft" && (
                   <button
                     onClick={() => handleStatusChange(blog._id, "published")}
-                    className="btn btn-sm btn-success"
+                    className="btn btn-sm bg-lightGreen text-white"
                   >
                     Publish
                   </button>
@@ -250,14 +174,14 @@ const createBlogMutation = useMutation({
                 {blog.status === "published" && (
                   <button
                     onClick={() => handleStatusChange(blog._id, "draft")}
-                    className="btn btn-sm btn-warning"
+                    className="btn btn-sm btn-warning text-white"
                   >
                     Unpublish
                   </button>
                 )}
                 <button
                   onClick={() => handleDeleteBlog(blog._id)}
-                  className="btn btn-sm btn-error"
+                  className="btn btn-sm bg-blood text-white"
                 >
                   Delete
                 </button>
