@@ -8,17 +8,17 @@ const AllUsers = () => {
   const [filter, setFilter] = useState("");
   const axiosPublic = useAxiosPublic();
 
-const { data: users = [], refetch } = useQuery({
+  const { data: users = [], refetch } = useQuery({
     queryKey: ["users", filter],
     queryFn: async () => {
       const { data } = await axiosPublic.get(`/all-users`, {
         params: { status: filter }
       });
-      console.log('data', data);
+      // console.log('data', data);
       return data;
     },
   });
-  
+
 
   const handleStatusChange = async (id, newStatus) => {
     try {
@@ -26,7 +26,7 @@ const { data: users = [], refetch } = useQuery({
       toast.success(`User status updated to ${newStatus}`);
       refetch();
     } catch (error) {
-        console.log(error);
+      console.log(error);
       toast.error("Failed to update user status.");
     }
   };
@@ -37,7 +37,7 @@ const { data: users = [], refetch } = useQuery({
       toast.success(`User role updated to ${newRole}`);
       refetch();
     } catch (error) {
-        console.log(error);
+      console.log(error);
       toast.error("Failed to update user role.");
     }
   };
