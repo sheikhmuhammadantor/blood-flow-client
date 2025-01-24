@@ -9,7 +9,7 @@ const RegistrationForm = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const from = location?.state?.from?.pathname || '/';
-    const { user, loading, createUser, updateUserProfile } = useAuth();
+    const { user, loading, setLoading, createUser, updateUserProfile } = useAuth();
     const [districts, setDistricts] = useState([]);
     const [upazilas, setUpazilas] = useState([]);
     const [filteredUpazilas, setFilteredUpazilas] = useState([]);
@@ -97,7 +97,7 @@ const RegistrationForm = () => {
             if (res.data.insertedId) toast.success("Registration successful!");
         } catch (error) {
             console.error("Registration failed:", error);
-        }
+        } finally{setLoading(false)};
     };
 
     return (

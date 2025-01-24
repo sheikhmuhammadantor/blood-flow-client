@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { createContext, useEffect, useState } from 'react'
 import {
   createUserWithEmailAndPassword,
@@ -10,6 +9,7 @@ import {
 } from 'firebase/auth'
 import { app } from '../firebase/firebase.config'
 import axios from 'axios'
+import PropTypes from 'prop-types'
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext(null)
@@ -30,6 +30,7 @@ const AuthProvider = ({ children }) => {
   }
 
   const logOut = async () => {
+    localStorage.removeItem('access-token');
     setLoading(true)
     return signOut(auth)
   }
@@ -50,11 +51,7 @@ const AuthProvider = ({ children }) => {
 
         // Get JWT token
         const res = await axios.post(
-          `${import.meta.env.VITE_API_URL}/jwt`,
-          {
-            email: currentUser?.email,
-          },
-          { withCredentials: true }
+          `${import.meta.env.VITE_API_URL}/jwt`, { email: currentUser?.email, }
         )
 
         if (res?.data.token) {
@@ -62,9 +59,7 @@ const AuthProvider = ({ children }) => {
         }
       } else {
         setUser(currentUser)
-        await axios.get(`${import.meta.env.VITE_API_URL}/logout`, {
-          withCredentials: true,
-        })
+        await axios.get(`${import.meta.env.VITE_API_URL}/logout`)
       }
       setLoading(false)
     })
@@ -89,6 +84,10 @@ const AuthProvider = ({ children }) => {
       {children}
     </AuthContext.Provider>
   )
+}
+
+AuthProvider.propTypes = {
+  children: PropTypes.node.isRequired,
 }
 
 export default AuthProvider
