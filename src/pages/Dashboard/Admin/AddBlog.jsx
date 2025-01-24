@@ -139,7 +139,7 @@ const AddBlog = () => {
         </button>
       </form>
 
-      <h2 className="text-xl font-bold mb-4">All Blogs</h2>
+      <div className="divider before:bg-blood after:bg-blood text-xl font-bold my-12">All Blogs</div>
 
       <div className="mb-4 flex items-center gap-4">
         <label htmlFor="filter" className="font-medium">

@@ -2,15 +2,16 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-// import '/node_modules/react-datepicker/dist/react-datepicker.css';
 import { FaRegCalendarAlt, FaClock } from "react-icons/fa";
 import useAuth from "../../../hooks/useAuth";
 import toast from "react-hot-toast";
-import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import useStatus from "../../../hooks/useStatus";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const CreateDonationRequest = () => {
     const { user } = useAuth();
-    const axiosPublic = useAxiosPublic();
+    const { status } = useStatus();
+    const axiosSecure = useAxiosSecure();
     const [districts, setDistricts] = useState([]);
     const [upazilas, setUpazilas] = useState([]);
     const [filteredUpazilas, setFilteredUpazilas] = useState([]);
@@ -60,13 +61,15 @@ const CreateDonationRequest = () => {
         };
 
         try {
-            const res = await axiosPublic.post("/create-donate-request", donationRequest);
+            const res = await axiosSecure.post("/create-donate-request", donationRequest);
             if (res.data.insertedId) toast.success("Donation request created successfully!");
         } catch (error) {
             console.error("Failed to create donation request:", error);
             toast.error("Failed to create donation request. Please try again.");
         }
     };
+
+    if (status === 'blocked') return <div className="text-center text-red-500 mt-12">Your account is blocked. You cannot create donation requests.</div>;
 
     return (
         <div className="flex justify-center items-center min-h-screen bg-gray-100">

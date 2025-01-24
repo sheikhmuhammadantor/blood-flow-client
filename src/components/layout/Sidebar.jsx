@@ -57,7 +57,7 @@ const Sidebar = () => {
                             <li className='border border-blood rounded-xl'><NavLink to='all-blood-donation-request'>All Donation Request</NavLink></li>
                             <li className='border border-blood rounded-xl'><NavLink to='create-donation-request'>Create Donation Request</NavLink></li>
                             {(role === 'admin' || role === 'volunteer') && <li className='border border-blood rounded-xl'><NavLink to='all-users'>All User</NavLink></li>}
-                            <li className='border border-blood rounded-xl'><NavLink to='content-management/add-blog'>Add Blog</NavLink></li>
+                            <li className='border border-blood rounded-xl'><NavLink to='content-management/add-blog'>Content Management</NavLink></li>
                         </ul>
                     </div>
                 </div>

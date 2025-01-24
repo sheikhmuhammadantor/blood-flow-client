@@ -4,6 +4,7 @@ import { FaEllipsisV } from "react-icons/fa";
 import toast from "react-hot-toast";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 
 const AllUsers = () => {
   const [filter, setFilter] = useState("");
@@ -73,6 +74,8 @@ const AllUsers = () => {
   const handelNextPage = () => {
     if (currentPage < numberOfPage) setCurrentPage(currentPage + 1)
   }
+
+  if(users.length === 0) return <LoadingSpinner />
 
   return (
     <section>

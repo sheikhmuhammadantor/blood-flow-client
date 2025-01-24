@@ -4,9 +4,9 @@ import useAuth from "./useAuth";
 
 const useRole = () => {
   const { user } = useAuth();
-  const [role, setRole] = useState(null); // State to store the user role
-  const [loading, setLoading] = useState(true); // State to track loading status
-  const [error, setError] = useState(null); // State to handle errors
+  const [role, setRole] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchRole = async () => {
@@ -18,17 +18,17 @@ const useRole = () => {
 
       try {
         const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/user/${user.email}`);
-        setRole(data.role); // Update the role from the response
+        setRole(data.role);
       } catch (err) {
         console.error("Error fetching user role:", err);
         setError(err.message || "Something went wrong");
       } finally {
-        setLoading(false); // Stop loading after fetching data
+        setLoading(false);
       }
     };
 
     fetchRole();
-  }, [user?.email]); // Run the effect whenever the email changes
+  }, [user?.email]);
 
   return { role, loading, error };
 };
