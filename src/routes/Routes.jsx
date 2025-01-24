@@ -48,7 +48,7 @@ export const router = createBrowserRouter([
         element: <BlogPage />,
       },
       {
-        path: '/blogs/:blogTheme',
+        path: '/blogs/:id',
         element: <BlogDetails />,
       },
       {
@@ -145,7 +145,7 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <AdminRoute>
-            <AllUsers />
+              <AllUsers />
             </AdminRoute>
           </PrivateRoute>
         ),

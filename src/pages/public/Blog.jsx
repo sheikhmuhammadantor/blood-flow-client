@@ -8,17 +8,17 @@ const BlogPage = () => {
   const axiosPublic = useAxiosPublic();
 
   useEffect(() => {
-    const fetchLocations = async () => {
+    const fetchingBlogData = async () => {
       try {
         const res = await axiosPublic("/blogs", {
           params: { status: 'published' },
         });
         setBlogs(res.data);
       } catch (error) {
-        console.error("Error fetching location data:", error);
+        console.error("Error fetching blog data:", error);
       }
     };
-    fetchLocations();
+    fetchingBlogData();
   }, []);
 
   return (
@@ -47,7 +47,7 @@ const BlogPage = () => {
                 <h3 className="text-2xl font-semibold text-red-600">
                   {blog.title}
                 </h3>
-                <div dangerouslySetInnerHTML={{ __html: blog.content }} className="text-gray-600 mt-2"></div>
+                <div dangerouslySetInnerHTML={{ __html: blog.content.substring(0, 100) + "..." }} className="text-gray-600 mt-2"></div>
                 <Link
                   to={blog?._id}
                   className="inline-block mt-4 text-white bg-red-500 hover:bg-red-600 px-4 py-2 rounded-md"
