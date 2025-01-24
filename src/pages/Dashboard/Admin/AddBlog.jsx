@@ -32,6 +32,9 @@ const AddBlog = () => {
     onSuccess: () => {
       toast.success("Blog created successfully!");
       refetch();
+      setTitle("");
+      setThumbnail(null);
+      setContent("");
     },
     onError: (err) => {
       console.error("Error details:", err);

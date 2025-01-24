@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { FaEllipsisV } from "react-icons/fa";
 import toast from "react-hot-toast";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
@@ -11,40 +12,35 @@ const AllUsers = () => {
   const [itemCount, setItemCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemPerPage, setItemPerPage] = useState(3);
-  const [users, setUsers] = useState([]);
-  const [refetch, setRefetch] = useState(false);
 
   // a get request for all users count only; with axiosPublic;
   useEffect(() => {
-    axiosPublic.get(`/all-users-count`, { params: { status: filter } }).then(({ data }) => {
-      setItemCount(data?.count);
-    });
+    axiosPublic.get(`/all-users-count`, { params: { status: filter } })
+      .then(({ data }) => {
+        setItemCount(data?.count);
+      });
   }, [axiosPublic, filter]);
 
-  useEffect(() => {
-    const fetchUsersData = async () => {
-      try {
-        const response = await axiosPublic(`/all-users`, {
-          params: {
-            status: filter,
-            skip: (currentPage - 1) * itemPerPage,
-            limit: itemPerPage,
-          },
-        });
-        setUsers(response.data);
-      } catch (err) {
-        console.error("Error fetching data:", err);
-      }
-    };
 
-    fetchUsersData();
-  }, [currentPage, itemPerPage, filter, axiosPublic, refetch]);
+  const { data: users = [], refetch } = useQuery({
+    queryKey: ["users", filter, currentPage, itemPerPage],
+    queryFn: async () => {
+      const { data } = await axiosPublic(`/all-users`, {
+        params: {
+          status: filter,
+          skip: (currentPage - 1) * itemPerPage,
+          limit: itemPerPage,
+        }
+      });
+      return data;
+    },
+  });
 
   const handleStatusChange = async (id, newStatus) => {
     try {
       await axiosSecure.patch(`/user/${id}/status`, { status: newStatus });
       toast.success(`User status updated to ${newStatus}`);
-      setRefetch(!refetch);
+      refetch();
     } catch (error) {
       console.log(error);
       toast.error("Failed to update user status.");
@@ -55,7 +51,7 @@ const AllUsers = () => {
     try {
       await axiosSecure.patch(`/user/${id}/role`, { role: newRole });
       toast.success(`User role updated to ${newRole}`);
-      setRefetch(!refetch);
+      refetch();
     } catch (error) {
       console.log(error);
       toast.error("Failed to update user role.");

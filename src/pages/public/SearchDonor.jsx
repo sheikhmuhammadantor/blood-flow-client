@@ -30,7 +30,6 @@ const SearchPage = () => {
 
     const handleSearch = async () => {
         try {
-            // const { data } = await axiosPublic(`/donors/search?bloodGroup=${bloodGroup}&district=${district}&upazila=${upazila}`);
             const { data } = await axiosPublic(`/donors/search`, {
                 params: {
                     bloodGroup,
@@ -115,7 +114,7 @@ const SearchPage = () => {
                 </div>
 
                 <button
-                    className="btn btn-primary mt-6"
+                    className="btn bg-blood text-white mt-6"
                     onClick={handleSearch}
                 >
                     Search
@@ -128,14 +127,21 @@ const SearchPage = () => {
                     <h2 className="text-xl font-semibold mb-4">Found Donors</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         {donors?.map((donor) => (
-                            <div
-                                key={donor._id}
-                                className="bg-white shadow-md rounded-lg p-4 border"
-                            >
+                            <div key={donor._id} className="bg-white shadow-md rounded-lg p-4 border">
                                 <p><strong>Name:</strong> {donor.name}</p>
                                 <p><strong>Email:</strong> {donor.email}</p>
                                 <p><strong>Blood Group:</strong> {donor.bloodGroup}</p>
-                                <p><strong>Location:</strong> {donor.district}, {donor.upazila}</p>
+                                <p>
+                                    <strong>Location: </strong>
+                                    <span>
+                                        {upazilas
+                                            .filter((upa) => upa.district_id === donor.district)
+                                            .find((upa) => upa.id === donor.upazila)?.name},{' '}
+                                    </span>
+                                    <span>
+                                        {districts.find((dist) => dist.id === donor.district)?.name}
+                                    </span>
+                                </p>
                             </div>
                         ))}
                     </div>

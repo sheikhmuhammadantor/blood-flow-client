@@ -1,32 +1,25 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const BlogPage = () => {
-  const blogs = [
-    {
-      id: 1,
-      title: "The Importance of Blood Donation",
-      description:
-        "Learn how donating blood can save lives and support your community. It's more than just a donation; it's a gift of life.",
-      image: "https://via.placeholder.com/400",
-      link: "/blogs/blood-donation-importance",
-    },
-    {
-      id: 2,
-      title: "Who Can Donate Blood?",
-      description:
-        "Discover the eligibility criteria for blood donation and how you can prepare for your first donation experience.",
-      image: "https://via.placeholder.com/400",
-      link: "/blogs/who-can-donate",
-    },
-    {
-      id: 3,
-      title: "How BloodFlow Simplifies Blood Donations",
-      description:
-        "Explore how BloodFlow connects donors with recipients and makes the donation process easier for everyone.",
-      image: "https://via.placeholder.com/400",
-      link: "how-bloodflow-works",
-    },
-  ];
+
+  const [blogs, setBlogs] = useState([]);
+  const axiosPublic = useAxiosPublic();
+
+  useEffect(() => {
+    const fetchLocations = async () => {
+      try {
+        const res = await axiosPublic("/blogs", {
+          params: { status: 'published' },
+        });
+        setBlogs(res.data);
+      } catch (error) {
+        console.error("Error fetching location data:", error);
+      }
+    };
+    fetchLocations();
+  }, []);
 
   return (
     <div className="bg-gray-100 py-8">
@@ -37,26 +30,26 @@ const BlogPage = () => {
         <p className="text-center text-gray-600 mb-8">
           Stay informed and learn more about the importance of blood donation.
         </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12">
           {blogs.map((blog) => (
             <div
-              key={blog.id}
-              className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
+              key={blog._id}
+              className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow mx-auto w-full max-w-[400px]"
             >
-              {blog.image && (
+              {blog.thumbnail && (
                 <img
-                  src={blog.image}
+                  src={blog.thumbnail}
                   alt={blog.title}
-                  className="w-full h-40 object-cover"
+                  className="w-full h-52 object-cover"
                 />
               )}
               <div className="p-4">
-                <h3 className="text-xl font-semibold text-red-600">
+                <h3 className="text-2xl font-semibold text-red-600">
                   {blog.title}
                 </h3>
-                <p className="text-gray-600 mt-2">{blog.description}</p>
+                <div dangerouslySetInnerHTML={{ __html: blog.content }} className="text-gray-600 mt-2"></div>
                 <Link
-                  to={blog.link}
+                  to={blog?._id}
                   className="inline-block mt-4 text-white bg-red-500 hover:bg-red-600 px-4 py-2 rounded-md"
                 >
                   Read More

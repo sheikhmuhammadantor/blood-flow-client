@@ -141,7 +141,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: 'all-user',
+        path: 'all-users',
         element: (
           <PrivateRoute>
             <AdminRoute>
