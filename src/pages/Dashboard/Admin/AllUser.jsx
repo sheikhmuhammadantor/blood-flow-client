@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-// import { useQuery } from "@tanstack/react-query";
 import { FaEllipsisV } from "react-icons/fa";
 import toast from "react-hot-toast";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
@@ -17,14 +16,10 @@ const AllUsers = () => {
 
   // a get request for all users count only; with axiosPublic;
   useEffect(() => {
-    axiosPublic.get(`/all-users-count`, {params: {status: filter}}).then(({ data }) => {
+    axiosPublic.get(`/all-users-count`, { params: { status: filter } }).then(({ data }) => {
       setItemCount(data?.count);
     });
   }, [axiosPublic, filter]);
-
-  // const faceData = async () => {
-  //   return 
-  // }
 
   useEffect(() => {
     const fetchUsersData = async () => {
@@ -82,13 +77,6 @@ const AllUsers = () => {
   const handelNextPage = () => {
     if (currentPage < numberOfPage) setCurrentPage(currentPage + 1)
   }
-
-  // const handelSetCurrentPage = (page) => {
-  //   // setCurrentPage(currentPage + 1)
-  //   // refetch();
-  //   setCurrentPage(page + 1)
-  //   // refetch();
-  // }
 
   return (
     <section>
