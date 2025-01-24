@@ -1,79 +1,54 @@
 import { useEffect, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+// import { useQuery } from "@tanstack/react-query";
 import { FaEllipsisV } from "react-icons/fa";
 import toast from "react-hot-toast";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const AllUsers = () => {
   const [filter, setFilter] = useState("");
   const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
   const [itemCount, setItemCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemPerPage, setItemPerPage] = useState(3);
-  // const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState([]);
 
   // a get request for all users count only; with axiosPublic;
   useEffect(() => {
-    axiosPublic.get(`/all-users-count`).then(({ data }) => {
+    axiosPublic.get(`/all-users-count`, {params: {status: filter}}).then(({ data }) => {
       setItemCount(data?.count);
     });
-  }, [axiosPublic]);
+  }, [axiosPublic, filter]);
 
+  const faceData = async () => {
+    return await axiosPublic(`/all-users`, {
+      params: {
+        status: filter,
+        skip: (currentPage - 1) * itemPerPage,
+        limit: itemPerPage,
+      },
+    });
+  }
 
-  const { data: users = [], refetch } = useQuery({
-    queryKey: ["users", filter],
-    queryFn: async () => {
-      const { data } = await axiosPublic(`/all-users`, {
-        params: {
-          status: filter,
-          skip: (currentPage - 1) * itemPerPage,
-          limit: itemPerPage,
-        }
-      });
-      // console.log('data', data);
-      return data;
-    },
-  });
+  useEffect(() => {
+    const fetchUsersData = async () => {
+      try {
+        const response = await faceData();
+        setUsers(response.data);
+      } catch (err) {
+        console.error("Error fetching data:", err);
+      }
+    };
 
-  // const { data , refetch } = useQuery({
-  //   queryKey: ["users", filter],
-  //   queryFn: async () => {
-  //     const { data } = await axiosPublic(`/all-users`, {
-  //       params: {
-  //         status: filter,
-  //         skip: (currentPage - 1) * itemPerPage,
-  //         limit: itemPerPage,
-  //       }
-  //     });
-  //     console.log('data', data);
-  //     setUsers(data);
-  //     return data;
-  //   },
-  // });
-
-  // useEffect({
-  //   const { data: users = [], refetch } = useQuery({
-  //     queryKey: ["users", filter],
-  //     queryFn: async () => {
-  //       const { data } = await axiosPublic(`/all-users`, {
-  //         params: {
-  //           status: filter,
-  //           skip: (currentPage - 1) * itemPerPage,
-  //           limit: itemPerPage,
-  //         }
-  //       });
-  //       // console.log('data', data);
-  //       return data;
-  //     },
-  //   })
-  // }, [currentPage, itemPerPage])
-
+    fetchUsersData();
+  }, [currentPage, itemPerPage, filter]);
 
   const handleStatusChange = async (id, newStatus) => {
     try {
-      await axiosPublic.patch(`/user/${id}/status`, { status: newStatus });
+      await axiosSecure.patch(`/user/${id}/status`, { status: newStatus });
       toast.success(`User status updated to ${newStatus}`);
-      refetch();
+      // await faceData();
     } catch (error) {
       console.log(error);
       toast.error("Failed to update user status.");
@@ -82,9 +57,9 @@ const AllUsers = () => {
 
   const handleRoleChange = async (id, newRole) => {
     try {
-      await axiosPublic.patch(`/user/${id}/role`, { role: newRole });
+      await axiosSecure.patch(`/user/${id}/role`, { role: newRole });
       toast.success(`User role updated to ${newRole}`);
-      refetch();
+      // await faceData();
     } catch (error) {
       console.log(error);
       toast.error("Failed to update user role.");
@@ -99,27 +74,27 @@ const AllUsers = () => {
     setItemPerPage(parseInt(e.target.value))
     // refetch();
     setCurrentPage(1)
-    refetch();
+    // refetch();
   }
 
   const handelPrevPage = () => {
     // refetch();
     if (currentPage > 1) setCurrentPage(currentPage - 1)
-    refetch();
+    // refetch();
   }
 
   const handelNextPage = () => {
     // refetch();
     if (currentPage < numberOfPage) setCurrentPage(currentPage + 1)
-    refetch();
+    // refetch();
   }
 
-  const handelSetCurrentPage = (page) => {
-    // setCurrentPage(currentPage + 1)
-    // refetch();
-    setCurrentPage(page + 1)
-    refetch();
-  }
+  // const handelSetCurrentPage = (page) => {
+  //   // setCurrentPage(currentPage + 1)
+  //   // refetch();
+  //   setCurrentPage(page + 1)
+  //   // refetch();
+  // }
 
   return (
     <section>
@@ -230,7 +205,7 @@ const AllUsers = () => {
           <button onClick={handelPrevPage} className="btn btn-sm btn-outline px-6">Prev</button>
           {
             pages?.map(page =>
-              <button onClick={() => handelSetCurrentPage(page)} className={`btn btn-sm btn-outline ${currentPage === page + 1 ? 'bg-teal-500' : ''}`} key={page}>
+              <button onClick={() => setCurrentPage(page + 1)} className={`btn btn-sm btn-outline ${currentPage === page + 1 ? 'bg-teal-500' : ''}`} key={page}>
                 {page + 1}
               </button>)
           }
