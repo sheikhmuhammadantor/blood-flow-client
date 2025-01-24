@@ -13,6 +13,7 @@ const AllUsers = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemPerPage, setItemPerPage] = useState(3);
   const [users, setUsers] = useState([]);
+  const [refetch, setRefetch] = useState(false);
 
   // a get request for all users count only; with axiosPublic;
   useEffect(() => {
@@ -21,20 +22,20 @@ const AllUsers = () => {
     });
   }, [axiosPublic, filter]);
 
-  const faceData = async () => {
-    return await axiosPublic(`/all-users`, {
-      params: {
-        status: filter,
-        skip: (currentPage - 1) * itemPerPage,
-        limit: itemPerPage,
-      },
-    });
-  }
+  // const faceData = async () => {
+  //   return 
+  // }
 
   useEffect(() => {
     const fetchUsersData = async () => {
       try {
-        const response = await faceData();
+        const response = await axiosPublic(`/all-users`, {
+          params: {
+            status: filter,
+            skip: (currentPage - 1) * itemPerPage,
+            limit: itemPerPage,
+          },
+        });
         setUsers(response.data);
       } catch (err) {
         console.error("Error fetching data:", err);
@@ -42,13 +43,13 @@ const AllUsers = () => {
     };
 
     fetchUsersData();
-  }, [currentPage, itemPerPage, filter]);
+  }, [currentPage, itemPerPage, filter, axiosPublic, refetch]);
 
   const handleStatusChange = async (id, newStatus) => {
     try {
       await axiosSecure.patch(`/user/${id}/status`, { status: newStatus });
       toast.success(`User status updated to ${newStatus}`);
-      // await faceData();
+      setRefetch(!refetch);
     } catch (error) {
       console.log(error);
       toast.error("Failed to update user status.");
@@ -59,7 +60,7 @@ const AllUsers = () => {
     try {
       await axiosSecure.patch(`/user/${id}/role`, { role: newRole });
       toast.success(`User role updated to ${newRole}`);
-      // await faceData();
+      setRefetch(!refetch);
     } catch (error) {
       console.log(error);
       toast.error("Failed to update user role.");
@@ -70,23 +71,16 @@ const AllUsers = () => {
   const pages = [...Array(numberOfPage).keys()];
 
   const handelItemParPage = e => {
-    // refetch();
     setItemPerPage(parseInt(e.target.value))
-    // refetch();
     setCurrentPage(1)
-    // refetch();
   }
 
   const handelPrevPage = () => {
-    // refetch();
     if (currentPage > 1) setCurrentPage(currentPage - 1)
-    // refetch();
   }
 
   const handelNextPage = () => {
-    // refetch();
     if (currentPage < numberOfPage) setCurrentPage(currentPage + 1)
-    // refetch();
   }
 
   // const handelSetCurrentPage = (page) => {
