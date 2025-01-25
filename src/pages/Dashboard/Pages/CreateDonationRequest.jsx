@@ -63,6 +63,17 @@ const CreateDonationRequest = () => {
         try {
             const res = await axiosSecure.post("/create-donate-request", donationRequest);
             if (res.data.insertedId) toast.success("Donation request created successfully!");
+            setFormData({
+                recipientName: "",
+                recipientDistrict: "",
+                recipientUpazila: "",
+                hospitalName: "",
+                addressLine: "",
+                bloodGroup: "A+",
+                donationDate: new Date(),
+                donationTime: "",
+                requestMessage: "",
+            })
         } catch (error) {
             console.error("Failed to create donation request:", error);
             toast.error("Failed to create donation request. Please try again.");

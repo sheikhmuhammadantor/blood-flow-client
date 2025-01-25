@@ -6,13 +6,33 @@ import { FaEdit, FaTrash, FaEye } from "react-icons/fa";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import useRole from "../../../hooks/useRole";
 import DashboardHomeAdmin from "../Admin/DashobardHomeAdmin";
+import axios from "axios";
 
 const DashboardHome = () => {
     const { user } = useAuth();
     const [donationRequests, setDonationRequests] = useState([]);
+    const [upazilas, setUpazilas] = useState("");
+    const [districts, setDistricts] = useState([]);
     const navigate = useNavigate();
     const axiosPublic = useAxiosPublic();
     const { role } = useRole();
+
+    useEffect(() => {
+        // Fetch districts and upazilas from JSON files
+        const fetchLocations = async () => {
+            try {
+                const [districtsData, upazilasData] = await Promise.all([
+                    axios("/districts.json"),
+                    axios("/upazilas.json"),
+                ]);
+                setDistricts(districtsData.data);
+                setUpazilas(upazilasData.data);
+            } catch (error) {
+                console.error("Error fetching location data:", error);
+            }
+        };
+        fetchLocations();
+    }, []);
 
     useEffect(() => {
         const fetchRequests = async () => {
@@ -108,7 +128,14 @@ const DashboardHome = () => {
                                 <tr key={request._id}>
                                     <td className="border px-4 py-2">{request.recipientName}</td>
                                     <td className="border px-4 py-2">
-                                        {`${request.recipientDistrict}, ${request.recipientUpazila}`}
+                                        <span>
+                                            {upazilas
+                                                .filter((upa) => upa.district_id === request.recipientDistrict)
+                                                .find((upa) => upa.id === request.recipientUpazila)?.name},{' '}
+                                        </span>
+                                        <span>
+                                            {districts.find((dist) => dist.id === request.recipientDistrict)?.name}
+                                        </span>
                                     </td>
                                     <td className="border px-4 py-2">{new Date(request.donationDate).toLocaleDateString()}</td>
                                     <td className="border px-4 py-2">{request.donationTime}</td>

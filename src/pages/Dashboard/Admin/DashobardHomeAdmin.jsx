@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { FaUsers, FaHandHoldingHeart, FaTint } from "react-icons/fa";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useRole from "../../../hooks/useRole";
 
 const DashboardHomeAdmin = () => {
     const axiosSecure = useAxiosSecure();
     const { user } = useAuth();
+    const { role } = useRole()
     const [stats, setStats] = useState({
         totalUsers: 0,
         totalFunding: 0,
@@ -39,7 +41,7 @@ const DashboardHomeAdmin = () => {
             {/* Welcome Section */}
             <div className="bg-blue-100 p-6 rounded-lg shadow-md text-center mb-6">
                 <h1 className="text-2xl font-bold text-blue-800">Welcome to the Dashboard!</h1>
-                <p className="text-blue-500"><span className="text-blood text-xl">Admin :</span> {user?.displayName}</p>
+                <p className="text-blue-500"><span className="text-blood text-xl capitalize">{role} :</span> {user?.displayName}</p>
                 <p className="text-blue-700 mt-2">Manage and oversee all activities at a glance.</p>
             </div>
 
