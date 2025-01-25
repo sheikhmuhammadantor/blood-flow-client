@@ -63,8 +63,8 @@ const AllDonationRequests = () => {
 
     if (result.isConfirmed) {
       try {
-        const {deletedCount} = await axiosPublic.delete(`/donation-request/${id}`);
-          if (deletedCount > 0) toast.success("Donation request deleted.");
+        const { deletedCount } = await axiosPublic.delete(`/donation-request/${id}`);
+        if (deletedCount > 0) toast.success("Donation request deleted.");
         refetch();
       } catch (error) {
         console.log(error);
@@ -128,8 +128,6 @@ const AllDonationRequests = () => {
                 <td className="border px-4 py-2">{new Date(request.donationDate).toLocaleDateString()}</td>
                 <td className="border px-4 py-2">{request.donationTime}</td>
                 <td className="border px-4 py-2">{request.bloodGroup}</td>
-                {/* <td className="capitalize border px-4 py-2">{request.donationStatus}</td> */}
-
                 <td className="border px-4 py-2 capitalize">
                   {request.donationStatus === "inprogress" ? (
                     <select

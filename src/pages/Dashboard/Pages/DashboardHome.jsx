@@ -18,7 +18,6 @@ const DashboardHome = () => {
     const { role } = useRole();
 
     useEffect(() => {
-        // Fetch districts and upazilas from JSON files
         const fetchLocations = async () => {
             try {
                 const [districtsData, upazilasData] = await Promise.all([
@@ -52,7 +51,7 @@ const DashboardHome = () => {
 
     const handleStatusChange = async (id, status) => {
         try {
-            await axiosPublic.patch(`/donation-request/${id}`, { status });
+            await axiosPublic.put(`/donation-request/${id}`, { status });
             setDonationRequests((prev) =>
                 prev.map((request) =>
                     request._id === id ? { ...request, donationStatus: status } : request
@@ -116,6 +115,8 @@ const DashboardHome = () => {
                             <tr>
                                 <th className="border px-4 py-2">Recipient Name</th>
                                 <th className="border px-4 py-2">Location</th>
+                                <th className="border px-4 py-2">Donor Name</th>
+                                <th className="border px-4 py-2">Donor Email</th>
                                 <th className="border px-4 py-2">Date</th>
                                 <th className="border px-4 py-2">Time</th>
                                 <th className="border px-4 py-2">Blood Group</th>
@@ -137,6 +138,8 @@ const DashboardHome = () => {
                                             {districts.find((dist) => dist.id === request.recipientDistrict)?.name}
                                         </span>
                                     </td>
+                                    <td className="border px-4 py-2">{request?.donorName || "Pending"}</td>
+                                    <td className="border px-4 py-2">{request?.donorEmail || "Pending"}</td>
                                     <td className="border px-4 py-2">{new Date(request.donationDate).toLocaleDateString()}</td>
                                     <td className="border px-4 py-2">{request.donationTime}</td>
                                     <td className="border px-4 py-2">{request.bloodGroup}</td>

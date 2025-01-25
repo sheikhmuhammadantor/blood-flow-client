@@ -6,7 +6,7 @@ import toast from 'react-hot-toast';
 
 
 const EditDonationRequest = () => {
-    const { id } = useParams(); // Get the donation request ID from the URL
+    const { id } = useParams();
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
@@ -39,7 +39,6 @@ const EditDonationRequest = () => {
     }, []);
 
     useEffect(() => {
-        // Fetch the donation request data by ID
         axiosPublic.get(`/donation-request/${id}`)
             .then((response) => {
                 setFormData(response.data);
@@ -66,14 +65,13 @@ const EditDonationRequest = () => {
             updateUpazilaOptions(value);
         }
     };
-
+console.log(formData);
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Send a PUT request to update the donation request
-        axiosPublic.put(`/api/donation-requests/${id}`, formData)
+        axiosPublic.patch(`/donation-requests/${id}`, formData)
             .then(() => {
                 toast.success('Donation request updated successfully!');
-                navigate('/'); // Redirect to the homepage or requests list
+                navigate('/dashboard');
             })
             .catch((error) => console.error('Error updating donation request:', error));
     };

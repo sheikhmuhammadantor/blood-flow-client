@@ -54,7 +54,7 @@ const Sidebar = () => {
                         <ul className="menu bg-base-200 rounded-box space-y-2">
                             <li className='border border-blood rounded-xl'><NavLink to='profile'>Profile</NavLink></li>
                             <li className='border border-blood rounded-xl'><NavLink to='my-donation-requests'>My Donation Request</NavLink></li>
-                            <li className='border border-blood rounded-xl'><NavLink to='all-blood-donation-request'>All Donation Request</NavLink></li>
+                            {(role === 'admin' || role === 'volunteer') && <li className='border border-blood rounded-xl'><NavLink to='all-blood-donation-request'>All Donation Request</NavLink></li>}
                             <li className='border border-blood rounded-xl'><NavLink to='create-donation-request'>Create Donation Request</NavLink></li>
                             {(role === 'admin') && <li className='border border-blood rounded-xl'><NavLink to='all-users'>All User</NavLink></li>}
                             {(role === 'admin' || role === 'volunteer') && <li className='border border-blood rounded-xl'><NavLink to='content-management/add-blog'>Content Management</NavLink></li>}

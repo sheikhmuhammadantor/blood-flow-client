@@ -4,6 +4,7 @@ import useAuth from "../../../hooks/useAuth";
 import Swal from "sweetalert2";
 import { FaArrowLeft } from "react-icons/fa";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import axios from "axios";
 
 const DonationRequestDetails = () => {
     const { id } = useParams();
@@ -11,16 +12,29 @@ const DonationRequestDetails = () => {
     const navigate = useNavigate();
     const axiosPublic = useAxiosPublic();
     const [donationRequest, setDonationRequest] = useState(null);
+    const [upazilas, setUpazilas] = useState("");
+    const [districts, setDistricts] = useState([]);
 
-    const fetchDonationRequestDetails = async (id) => {
-        const { data } = await axiosPublic.get(`/donation-request/${id}`);
-        return data;
-    };
+    useEffect(() => {
+        const fetchLocations = async () => {
+            try {
+                const [districtsData, upazilasData] = await Promise.all([
+                    axios("/districts.json"),
+                    axios("/upazilas.json"),
+                ]);
+                setDistricts(districtsData.data);
+                setUpazilas(upazilasData.data);
+            } catch (error) {
+                console.error("Error fetching location data:", error);
+            }
+        };
+        fetchLocations();
+    }, []);
 
     useEffect(() => {
         const fetchDetails = async () => {
             try {
-                const data = await fetchDonationRequestDetails(id);
+                const { data } = await axiosPublic.get(`/donation-request/${id}`);
                 setDonationRequest(data);
                 console.log(data);
             } catch (error) {
@@ -30,6 +44,12 @@ const DonationRequestDetails = () => {
 
         fetchDetails();
     }, [id]);
+
+    const getLocation = (districtId, upazilaId) => {
+        const district = districts.find((d) => d.id === districtId)?.name || "Unknown District";
+        const upazila = upazilas.find((u) => u.id === upazilaId)?.name || "Unknown Upazila";
+        return `${district}, ${upazila}`;
+    };
 
     const handleDonate = async () => {
         const confirm = await Swal.fire({
@@ -43,6 +63,8 @@ const DonationRequestDetails = () => {
             try {
                 await axiosPublic.put(`/donation-request/${id}`, {
                     donationStatus: "inprogress",
+                    donorEmail: user.email,
+                    donorName: user.displayName,
                 });
                 Swal.fire("Success", "Donation request is now in progress!", "success");
                 navigate("/dashboard");
@@ -83,7 +105,7 @@ const DonationRequestDetails = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <p><strong>Requester Name:</strong> {requesterName}</p>
                 <p><strong>Recipient Name:</strong> {recipientName}</p>
-                <p><strong>Location:</strong> {recipientDistrict}, {recipientUpazila}</p>
+                <p><strong>Location:</strong> {getLocation(recipientDistrict, recipientUpazila)}</p>
                 <p><strong>Hospital Name:</strong> {hospitalName}</p>
                 <p><strong>Address Line:</strong> {addressLine}</p>
                 <p><strong>Blood Group:</strong> {bloodGroup}</p>
@@ -92,6 +114,29 @@ const DonationRequestDetails = () => {
                 <p><strong>Status:</strong> {donationStatus}</p>
                 <p><strong>Message:</strong> {requestMessage}</p>
             </div>
+
+            {donationStatus === "pending" && (
+                <form className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                    <div className="form-control">
+                        <label className="label">Donor Name</label>
+                        <input
+                            type="text"
+                            value={user?.displayName}
+                            readOnly
+                            className="input input-bordered w-full bg-gray-200"
+                        />
+                    </div>
+                    <div className="form-control">
+                        <label className="label">Donor Email</label>
+                        <input
+                            type="email"
+                            value={user?.email}
+                            readOnly
+                            className="input input-bordered w-full bg-gray-200"
+                        />
+                    </div>
+                </form>
+            )}
 
             {donationStatus === "pending" && (
                 <button

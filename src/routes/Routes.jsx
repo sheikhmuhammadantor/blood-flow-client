@@ -23,6 +23,7 @@ import AllDonationRequests from '../pages/Dashboard/Pages/AllDonationRequest'
 import AllUsers from '../pages/Dashboard/Admin/AllUser'
 import AddBlog from '../pages/Dashboard/Admin/AddBlog'
 import AdminRoute from './AdminRoute'
+import VolunteerRoute from './VolunteerRoute'
 
 export const router = createBrowserRouter([
   {
@@ -94,7 +95,9 @@ export const router = createBrowserRouter([
         path: 'all-blood-donation-request',
         element: (
           <PrivateRoute>
-            <AllDonationRequests />
+            <VolunteerRoute>
+              <AllDonationRequests />
+            </VolunteerRoute>
           </PrivateRoute>
         ),
       },
@@ -126,7 +129,9 @@ export const router = createBrowserRouter([
         path: 'content-management/add-blog',
         element: (
           <PrivateRoute>
-            <AddBlog />
+            <VolunteerRoute>
+              <AddBlog />
+            </VolunteerRoute>
           </PrivateRoute>
         ),
       },
