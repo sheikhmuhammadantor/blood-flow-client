@@ -99,7 +99,7 @@ const DashboardHome = () => {
                 <img
                     src={user?.photoURL}
                     alt="User Avatar"
-                    className="w-16 h-16 rounded-full"
+                    className="w-16 h-16 rounded-full ring-2 ring-blood"
                 />
                 <h1 className="text-2xl font-semibold">
                     Welcome, {user?.displayName}!
@@ -113,6 +113,7 @@ const DashboardHome = () => {
                     <table className="table-auto w-full border-collapse border border-gray-200">
                         <thead>
                             <tr>
+                                <th className="border px-4 py-2">#</th>
                                 <th className="border px-4 py-2">Recipient Name</th>
                                 <th className="border px-4 py-2">Location</th>
                                 <th className="border px-4 py-2">Donor Name</th>
@@ -125,8 +126,9 @@ const DashboardHome = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {donationRequests?.map((request) => (
+                            {donationRequests?.map((request, index) => (
                                 <tr key={request._id}>
+                                    <td className="border px-4 py-2">{index + 1}</td>
                                     <td className="border px-4 py-2">{request.recipientName}</td>
                                     <td className="border px-4 py-2">
                                         <span>

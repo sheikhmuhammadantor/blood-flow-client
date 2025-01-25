@@ -119,7 +119,7 @@ const AllUsers = () => {
                     <img
                       src={user.avatar}
                       alt={user.name}
-                      className="w-10 h-10 rounded-full outline outline-2 outline-blood "
+                      className="w-10 h-10 rounded-full ring-2 ring-blood "
                     />
                   </td>
                   <td className="border px-4 py-2">{user.email}</td>

@@ -125,7 +125,7 @@ const ProfilePage = () => {
                         <img
                             src={formData?.avatar || demoUser}
                             alt="User Avatar"
-                            className="w-32 h-32 rounded-full border-4 border-blood object-cover"
+                            className="w-32 h-32 rounded-full ring-4 ring-blood object-cover"
                         />
                         {isEditing && (
                             <input

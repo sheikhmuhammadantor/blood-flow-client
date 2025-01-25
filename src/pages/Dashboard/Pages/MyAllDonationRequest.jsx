@@ -110,6 +110,7 @@ const MyDonationRequests = () => {
         <table className="table-auto w-full border-collapse border border-gray-200">
           <thead>
             <tr>
+            <th className="border px-4 py-2">#</th>
               <th className="border px-4 py-2">Recipient Name</th>
               <th className="border px-4 py-2">Location</th>
               <th className="border px-4 py-2">Dolor Name</th>
@@ -122,8 +123,9 @@ const MyDonationRequests = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredRequests?.map((request) => (
+            {filteredRequests?.map((request, index) => (
               <tr key={request._id}>
+                <td className="border px-4 py-2">{index + 1}</td>
                 <td className="border px-4 py-2">{request.recipientName}</td>
                 <td className="border px-4 py-2">{getLocation(request.recipientDistrict, request.recipientUpazila)}</td>
                 <td className="border px-4 py-2">{new Date(request.donationDate).toLocaleDateString()}</td>
@@ -131,8 +133,6 @@ const MyDonationRequests = () => {
                 <td className="border px-4 py-2">{request?.donorEmail || "Pending"}</td>
                 <td className="border px-4 py-2">{request.donationTime}</td>
                 <td className="border px-4 py-2">{request.bloodGroup}</td>
-                {/* <td className="capitalize border px-4 py-2">{request.donationStatus}</td> */}
-
                 <td className="border px-4 py-2 capitalize">
                   {request.donationStatus === "inprogress" ? (
                     <select
@@ -150,24 +150,7 @@ const MyDonationRequests = () => {
                     request.donationStatus
                   )}
                 </td>
-
                 <td className="border px-4 py-2 space-x-2 flex flex-col items-center gap-1 lg:flex-row lg:gap-0">
-                  {/* {request.donationStatus === "inprogress" && (
-                    <>
-                      <button
-                        className="btn btn-success btn-sm"
-                        onClick={() => handleStatusChange(request._id, "done")}
-                      >
-                        Done
-                      </button>
-                      <button
-                        className="btn btn-error btn-sm"
-                        onClick={() => handleStatusChange(request._id, "canceled")}
-                      >
-                        Cancel
-                      </button>
-                    </>
-                  )} */}
                   <button
                     className="btn bg-lightGreen text-white btn-sm"
                     onClick={() => (window.location.href = `/dashboard/edit-donation-request/${request._id}`)}

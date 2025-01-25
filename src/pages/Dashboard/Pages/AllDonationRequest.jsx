@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import { useNavigate } from "react-router-dom";
+import useRole from "../../../hooks/useRole";
 
 const AllDonationRequests = () => {
   const [filter, setFilter] = useState("");
@@ -13,6 +14,7 @@ const AllDonationRequests = () => {
   const [upazilas, setUpazilas] = useState([]);
   const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
+  const { role } = useRole()
 
   useEffect(() => {
     const fetchLocationData = async () => {
@@ -112,6 +114,8 @@ const AllDonationRequests = () => {
               <th className="border px-4 py-2">#</th>
               <th className="border px-4 py-2">Recipient Name</th>
               <th className="border px-4 py-2">Location</th>
+              <th className="border px-4 py-2">Dolor Name</th>
+              <th className="border px-4 py-2">Dolor Email</th>
               <th className="border px-4 py-2">Donation Date</th>
               <th className="border px-4 py-2">Donation Time</th>
               <th className="border px-4 py-2">Blood Group</th>
@@ -125,6 +129,8 @@ const AllDonationRequests = () => {
                 <td className="border px-4 py-2">{index + 1}</td>
                 <td className="border px-4 py-2">{request.recipientName}</td>
                 <td className="border px-4 py-2">{getLocation(request.recipientDistrict, request.recipientUpazila)}</td>
+                <td className="border px-4 py-2">{request?.donorName || "Pending"}</td>
+                <td className="border px-4 py-2">{request?.donorEmail || "Pending"}</td>
                 <td className="border px-4 py-2">{new Date(request.donationDate).toLocaleDateString()}</td>
                 <td className="border px-4 py-2">{request.donationTime}</td>
                 <td className="border px-4 py-2">{request.bloodGroup}</td>
@@ -145,36 +151,23 @@ const AllDonationRequests = () => {
                     request.donationStatus
                   )}
                 </td>
-
                 <td className="border px-4 py-2 space-x-2 flex flex-col items-center gap-1 lg:flex-row lg:gap-0">
-                  {/* {request.donationStatus === "inprogress" && (
-                    <>
-                      <button
-                        className="btn btn-success btn-sm"
-                        onClick={() => handleStatusChange(request._id, "done")}
-                      >
-                        Done
-                      </button>
-                      <button
-                        className="btn btn-error btn-sm"
-                        onClick={() => handleStatusChange(request._id, "canceled")}
-                      >
-                        Cancel
-                      </button>
-                    </>
-                  )} */}
-                  <button
-                    className="btn bg-lightGreen text-white btn-sm"
-                    onClick={() => (window.location.href = `/dashboard/edit-donation-request/${request._id}`)}
-                  >
-                    <FaEdit />
-                  </button>
-                  <button
-                    className="btn bg-blood text-white btn-sm"
-                    onClick={() => handleDelete(request._id)}
-                  >
-                    <FaTrash />
-                  </button>
+                  {(role === 'admin') &&
+                    <button
+                      className="btn bg-lightGreen text-white btn-sm"
+                      onClick={() => (window.location.href = `/dashboard/edit-donation-request/${request._id}`)}
+                    >
+                      <FaEdit />
+                    </button>
+                  }
+                  {(role === 'admin') &&
+                    <button
+                      className="btn bg-blood text-white btn-sm"
+                      onClick={() => handleDelete(request._id)}
+                    >
+                      <FaTrash />
+                    </button>
+                  }
                   <button
                     className="btn btn-sm btn-info text-white"
                     onClick={() => navigate(`/dashboard/donation-request/${request._id}`)}
