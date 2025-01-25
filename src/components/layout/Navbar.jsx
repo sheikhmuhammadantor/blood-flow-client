@@ -34,18 +34,18 @@ const Navbar = () => {
                 <div className={`navbar-center lg:flex ${isMenuOpen ? "absolute" : "hidden"} top-16 left-11`}>
                     <ul className="menu menu-compact lg:menu-horizontal px-1 bg-slate-500/95 lg:bg-transparent rounded-xl lg:rounded-none lg:shadow-none shadow-xl text-white font-semibold lg:text-black">
                         <li>
-                            <NavLink to="/donation-requests" className={({ isActive }) => isActive ? "font-semibold text-primary" : ""}>
+                            <NavLink to="/donation-requests" className={({ isActive }) => isActive ? "font-semibold bg-blood text-white" : ""}>
                                 Donation Requests
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink to="/blogs" className={({ isActive }) => isActive ? "font-semibold text-primary" : ""}>
+                            <NavLink to="/blogs" className={({ isActive }) => isActive ? "font-semibold bg-blood text-white" : ""}>
                                 Blog
                             </NavLink>
                         </li>
                         {user && (
                             <li>
-                                <NavLink to="/funding" className={({ isActive }) => isActive ? "font-semibold text-primary" : ""}>
+                                <NavLink to="/funding" className={({ isActive }) => isActive ? "font-semibold bg-blood text-white" : ""}>
                                     Funding
                                 </NavLink>
                             </li>

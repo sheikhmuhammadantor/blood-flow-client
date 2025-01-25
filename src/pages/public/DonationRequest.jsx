@@ -79,7 +79,7 @@ const BloodDonationRequests = () => {
                                     <td>{req.donationTime}</td>
                                     <td>
                                         <button
-                                            className="btn btn-primary btn-sm"
+                                            className="btn bg-blood text-white btn-sm"
                                             onClick={() => handleViewDetails(req._id)}
                                         >
                                             View

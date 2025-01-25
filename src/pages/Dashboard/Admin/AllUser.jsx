@@ -75,7 +75,7 @@ const AllUsers = () => {
     if (currentPage < numberOfPage) setCurrentPage(currentPage + 1)
   }
 
-  if(users.length === 0) return <LoadingSpinner />
+  if (users.length === 0) return <LoadingSpinner />
 
   return (
     <section>
@@ -168,6 +168,15 @@ const AllUsers = () => {
                               onClick={() => handleRoleChange(user._id, "admin")}
                             >
                               Make Admin
+                            </button>
+                          </li>
+                        )}
+                        {user.role !== "donor" && (
+                          <li>
+                            <button
+                              onClick={() => handleRoleChange(user._id, "donor")}
+                            >
+                              Make Donor
                             </button>
                           </li>
                         )}

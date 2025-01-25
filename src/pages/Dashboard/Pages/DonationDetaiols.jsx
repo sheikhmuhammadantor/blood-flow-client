@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
-// import axios from "axios";
 import Swal from "sweetalert2";
 import { FaArrowLeft } from "react-icons/fa";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
@@ -96,7 +95,7 @@ const DonationRequestDetails = () => {
 
             {donationStatus === "pending" && (
                 <button
-                    className="btn btn-primary mt-6"
+                    className="btn bg-blood text-white mt-6"
                     onClick={handleDonate}
                 >
                     Donate Now

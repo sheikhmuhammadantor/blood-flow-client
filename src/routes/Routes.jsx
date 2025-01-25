@@ -2,7 +2,6 @@ import { createBrowserRouter } from 'react-router-dom'
 import Home from '../pages/Home/Home'
 import ErrorPage from '../pages/ErrorPage'
 import Login from '../pages/auth/Login'
-// import SignUp from '../pages/SignUp/SignUp'
 import MainLayout from '../layouts/MainLayout'
 import PrivateRoute from './PrivateRoute'
 import DashboardLayout from '../layouts/DashboardLayout'
@@ -67,7 +66,6 @@ export const router = createBrowserRouter([
   },
   { path: '/login', element: <Login /> },
   { path: '/register', element: <RegistrationForm /> },
-  // { path: '/signup', element: <SignUp /> },
   {
     path: '/dashboard',
     element: (

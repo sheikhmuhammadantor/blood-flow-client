@@ -10,9 +10,7 @@ const BlogPage = () => {
   useEffect(() => {
     const fetchingBlogData = async () => {
       try {
-        const res = await axiosPublic("/blogs", {
-          params: { status: 'published' },
-        });
+        const res = await axiosPublic("/blogs-published");
         setBlogs(res.data);
       } catch (error) {
         console.error("Error fetching blog data:", error);
