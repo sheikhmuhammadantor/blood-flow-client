@@ -4,12 +4,15 @@ import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEdit, FaTrash, FaEye } from "react-icons/fa";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import useRole from "../../../hooks/useRole";
+import DashboardHomeAdmin from "../Admin/DashobardHomeAdmin";
 
 const DashboardHome = () => {
     const { user } = useAuth();
     const [donationRequests, setDonationRequests] = useState([]);
     const navigate = useNavigate();
     const axiosPublic = useAxiosPublic();
+    const { role } = useRole();
 
     useEffect(() => {
         const fetchRequests = async () => {
@@ -65,6 +68,10 @@ const DashboardHome = () => {
             }
         }
     };
+
+    if (role === 'admin' || role === 'volunteer') return (
+        <DashboardHomeAdmin />
+    )
 
     return (
         <div className="p-6 space-y-6">
@@ -149,18 +156,21 @@ const DashboardHome = () => {
                     </table>
                 </div>
             ) : (
-                <p className="text-gray-500">You haven’t made any donation requests yet.</p>
+                <p className="text-blood">You haven’t made any donation requests yet.</p>
             )}
 
             {/* View All Requests Button */}
-            <div>
-                <Link
-                    to="my-donation-requests"
-                    className="btn bg-blood text-white mt-4"
-                >
-                    View My All Requests
-                </Link>
-            </div>
+            {
+                donationRequests.length > 0 &&
+                <div>
+                    <Link
+                        to="my-donation-requests"
+                        className="btn bg-blood text-white mt-4"
+                    >
+                        View My All Requests
+                    </Link>
+                </div>
+            }
         </div>
     );
 };
