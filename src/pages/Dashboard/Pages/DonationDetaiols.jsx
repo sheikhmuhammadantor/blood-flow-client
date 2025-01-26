@@ -31,6 +31,7 @@ const DonationRequestDetails = () => {
         fetchLocations();
     }, []);
 
+    // No Need tanstack query;
     useEffect(() => {
         const fetchDetails = async () => {
             try {
@@ -43,7 +44,7 @@ const DonationRequestDetails = () => {
         };
 
         fetchDetails();
-    }, [id]);
+    }, [id, axiosPublic]);
 
     const getLocation = (districtId, upazilaId) => {
         const district = districts.find((d) => d.id === districtId)?.name || "Unknown District";

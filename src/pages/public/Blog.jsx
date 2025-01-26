@@ -1,23 +1,28 @@
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+import { useQuery } from "@tanstack/react-query";
+import ErrorMessage from "../../components/Shared/ErrorMessage";
+import LoadingSpinner from "../../components/Shared/LoadingSpinner";
 
 const BlogPage = () => {
 
-  const [blogs, setBlogs] = useState([]);
   const axiosPublic = useAxiosPublic();
 
-  useEffect(() => {
-    const fetchingBlogData = async () => {
-      try {
-        const res = await axiosPublic("/blogs-published");
-        setBlogs(res.data);
-      } catch (error) {
-        console.error("Error fetching blog data:", error);
-      }
-    };
-    fetchingBlogData();
-  }, []);
+  const { data: blogs, error, isLoading } = useQuery({
+    queryKey: ['blogs'],
+    queryFn: async () => {
+      const { data } = await axiosPublic("/blogs-published");
+      return data;
+    }
+  });
+
+  if (isLoading) {
+    return <LoadingSpinner />
+  }
+
+  if (error) {
+    return <ErrorMessage message="Error fetching blog data" />
+  }
 
   return (
     <div className="bg-gray-100 py-8">

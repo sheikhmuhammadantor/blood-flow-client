@@ -28,13 +28,14 @@ const ProfilePage = () => {
         loadGeoData();
     }, []);
 
+    // No Need tanstack query;
+    // TODO : Implement tanstack query;
     useEffect(() => {
         const fetchUserData = async () => {
             try {
                 const response = await axiosPublic.get(`user/${authUser?.email}`);
                 setUser(response.data);
                 setFormData(response.data);
-                // console.log(response.data);
                 const upazilasForDistrict = upazilas?.filter(
                     (u) => u.district_id === response.data.district
                 );
@@ -45,7 +46,7 @@ const ProfilePage = () => {
             }
         };
         fetchUserData();
-    }, []);
+    }, [axiosPublic, authUser, upazilas]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;

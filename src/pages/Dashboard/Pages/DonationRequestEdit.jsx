@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import useAxiosPublic from '../../../hooks/useAxiosPublic';
@@ -28,6 +28,13 @@ const EditDonationRequest = () => {
     const [upazilas, setUpazilas] = useState([]);
     const axiosPublic = useAxiosPublic();
 
+    const updateUpazilaOptions = useCallback((districtId) => {
+        const filteredUpazilas = upazilas.filter(
+            (upazila) => upazila.district_id === districtId
+        );
+        setUpazilaOptions(filteredUpazilas);
+    }, [upazilas]);
+
     useEffect(() => {
         const loadGeoData = async () => {
             const districtData = await axios("/districts.json");
@@ -38,6 +45,7 @@ const EditDonationRequest = () => {
         loadGeoData();
     }, []);
 
+    // No Need tanstack query;
     useEffect(() => {
         axiosPublic.get(`/donation-request/${id}`)
             .then((response) => {
@@ -45,14 +53,7 @@ const EditDonationRequest = () => {
                 updateUpazilaOptions(response.data.recipientDistrict);
             })
             .catch((error) => console.error('Error fetching donation request:', error));
-    }, [id]);
-
-    const updateUpazilaOptions = (districtId) => {
-        const filteredUpazilas = upazilas.filter(
-            (upazila) => upazila.district_id === districtId
-        );
-        setUpazilaOptions(filteredUpazilas);
-    };
+    }, [id, axiosPublic, updateUpazilaOptions]);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -65,13 +66,13 @@ const EditDonationRequest = () => {
             updateUpazilaOptions(value);
         }
     };
-console.log(formData);
+    console.log(formData);
     const handleSubmit = (e) => {
         e.preventDefault();
         axiosPublic.patch(`/donation-requests/${id}`, formData)
             .then(() => {
                 toast.success('Donation request updated successfully!');
-                navigate('/dashboard');
+                navigate('/dashboard/my-donation-requests');
             })
             .catch((error) => console.error('Error updating donation request:', error));
     };

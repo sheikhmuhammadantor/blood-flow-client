@@ -14,14 +14,12 @@ const AllUsers = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemPerPage, setItemPerPage] = useState(3);
 
-  // a get request for all users count only; with axiosPublic;
   useEffect(() => {
     axiosPublic.get(`/all-users-count`, { params: { status: filter } })
       .then(({ data }) => {
         setItemCount(data?.count);
       });
   }, [axiosPublic, filter]);
-
 
   const { data: users = [], refetch } = useQuery({
     queryKey: ["users", filter, currentPage, itemPerPage],

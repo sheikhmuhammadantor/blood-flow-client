@@ -80,22 +80,22 @@ const FundingPage = () => {
       <div className="divider before:bg-blood after:bg-blood text-xl font-bold my-12">All Funds</div>
 
       <div className="overflow-x-auto">
-        <table className="table w-full">
+        <table className="table-auto w-full border-collapse border border-gray-200">
           <thead>
             <tr>
-              <th>#</th>
-              <th>User Name</th>
-              <th>Fund Amount</th>
-              <th>Funding Date</th>
+              <th className="border px-4 py-2">#</th>
+              <th className="border px-4 py-2">User Name</th>
+              <th className="border px-4 py-2">Fund Amount</th>
+              <th className="border px-4 py-2">Funding Date</th>
             </tr>
           </thead>
           <tbody>
             {funds?.map((fund, index) => (
               <tr key={fund?._id}>
-                <td>{index + 1}</td>
-                <td>{fund.sponsorName}</td>
-                <td>${fund.fundAmount}</td>
-                <td>{format(new Date(fund?.fundDate), "PPP")}</td>
+                <td className="border px-4 py-2">{index + 1}</td>
+                <td className="border px-4 py-2">{fund.sponsorName}</td>
+                <td className="border px-4 py-2">${fund.fundAmount}</td>
+                <td className="border px-4 py-2">{format(new Date(fund?.fundDate), "PPP")}</td>
               </tr>
             ))}
           </tbody>

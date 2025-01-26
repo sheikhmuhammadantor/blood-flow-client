@@ -7,6 +7,7 @@ import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import useRole from "../../../hooks/useRole";
 import DashboardHomeAdmin from "../Admin/DashobardHomeAdmin";
 import axios from "axios";
+import { useQuery } from '@tanstack/react-query';
 
 const DashboardHome = () => {
     const { user } = useAuth();
@@ -17,37 +18,42 @@ const DashboardHome = () => {
     const axiosPublic = useAxiosPublic();
     const { role } = useRole();
 
-    useEffect(() => {
-        const fetchLocations = async () => {
-            try {
-                const [districtsData, upazilasData] = await Promise.all([
-                    axios("/districts.json"),
-                    axios("/upazilas.json"),
-                ]);
-                setDistricts(districtsData.data);
-                setUpazilas(upazilasData.data);
-            } catch (error) {
-                console.error("Error fetching location data:", error);
-            }
-        };
-        fetchLocations();
-    }, []);
+    const { data: locationsData } = useQuery({
+        queryKey: ['locations'],
+        queryFn: async () => {
+            const [districtsData, upazilasData] = await Promise.all([
+                axios.get("/districts.json"),
+                axios.get("/upazilas.json"),
+            ]);
+            return { districts: districtsData.data, upazilas: upazilasData.data };
+        },
+    });
 
     useEffect(() => {
-        const fetchRequests = async () => {
-            try {
-                const response = await axiosPublic.get(`/donation-request`, {
-                    params: { email: user?.email, limit: 3 },
-                });
-                setDonationRequests(response.data);
-            } catch (error) {
-                console.error("Failed to fetch donation requests", error);
-            }
-        };
-        if (user?.email) {
-            fetchRequests();
+        if (locationsData) {
+            setDistricts(locationsData.districts);
+            setUpazilas(locationsData.upazilas);
         }
-    }, [user]);
+    }, [locationsData]);
+
+    const fetchRequests = async () => {
+        const response = await axiosPublic.get(`/donation-request`, {
+            params: { email: user?.email, limit: 3 },
+        });
+        return response.data;
+    };
+
+    const { data: donationRequestsData, refetch } = useQuery({
+        queryKey: ['donationRequests', user?.email],
+        queryFn: fetchRequests,
+        enabled: !!user?.email,
+    });
+
+    useEffect(() => {
+        if (donationRequestsData) {
+            setDonationRequests(donationRequestsData);
+        }
+    }, [donationRequestsData]);
 
     const handleStatusChange = async (id, status) => {
         try {
@@ -77,9 +83,7 @@ const DashboardHome = () => {
         if (confirm.isConfirmed) {
             try {
                 await axiosPublic.delete(`/donation-request/${id}`);
-                setDonationRequests((prev) =>
-                    prev.filter((request) => request._id !== id)
-                );
+                refetch();
                 Swal.fire("Deleted!", "Your donation request has been deleted.", "success");
             } catch (error) {
                 console.error("Failed to delete donation request", error);

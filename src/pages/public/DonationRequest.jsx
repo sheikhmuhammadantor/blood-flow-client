@@ -11,6 +11,7 @@ const BloodDonationRequests = () => {
     const axiosPublic = useAxiosPublic();
     const { user } = useAuth();
 
+    // No Need tanstack query;
     useEffect(() => {
         const fetchDonationRequests = async () => {
             try {
@@ -36,7 +37,7 @@ const BloodDonationRequests = () => {
 
         fetchDonationRequests();
         fetchLocations();
-    }, []);
+    }, [axiosPublic]);
 
     const handleViewDetails = (id) => {
         if (user) {
@@ -53,31 +54,31 @@ const BloodDonationRequests = () => {
         <div className="p-6">
             <h1 className="text-2xl font-semibold mb-4">Blood Donation Requests</h1>
             <div className="overflow-x-auto">
-                <table className="table table-zebra w-full">
+                <table className="table-auto table-zebra w-full">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Recipient Name</th>
-                            <th>Location</th>
-                            <th>Blood Group</th>
-                            <th>Date</th>
-                            <th>Time</th>
-                            <th>Action</th>
+                            <th className="border px-4 py-2">#</th>
+                            <th className="border px-4 py-2">Recipient Name</th>
+                            <th className="border px-4 py-2">Location</th>
+                            <th className="border px-4 py-2">Blood Group</th>
+                            <th className="border px-4 py-2">Date</th>
+                            <th className="border px-4 py-2">Time</th>
+                            <th className="border px-4 py-2">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         {requests.length > 0 ? (
                             requests.map((req, index) => (
                                 <tr key={req._id}>
-                                    <td>{index + 1}</td>
-                                    <td>{req.recipientName}</td>
-                                    <td>
+                                    <td className="border px-4 py-2">{index + 1}</td>
+                                    <td className="border px-4 py-2">{req.recipientName}</td>
+                                    <td className="border px-4 py-2">
                                         {getDistrictName(req.recipientDistrict)}, {getUpazilaName(req.recipientUpazila)}
                                     </td>
-                                    <td>{req.bloodGroup}</td>
-                                    <td>{new Date(req.donationDate).toLocaleDateString()}</td>
-                                    <td>{req.donationTime}</td>
-                                    <td>
+                                    <td className="border px-4 py-2">{req.bloodGroup}</td>
+                                    <td className="border px-4 py-2">{new Date(req.donationDate).toLocaleDateString()}</td>
+                                    <td className="border px-4 py-2">{req.donationTime}</td>
+                                    <td className="border px-4 py-2">
                                         <button
                                             className="btn bg-blood text-white btn-sm"
                                             onClick={() => handleViewDetails(req._id)}
@@ -89,7 +90,7 @@ const BloodDonationRequests = () => {
                             ))
                         ) : (
                             <tr>
-                                <td colSpan="7" className="text-center">
+                                <td colSpan="7" className="text-center border px-4 py-2">
                                     No pending donation requests found.
                                 </td>
                             </tr>

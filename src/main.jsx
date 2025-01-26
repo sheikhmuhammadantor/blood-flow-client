@@ -11,7 +11,8 @@ import 'react-date-range/dist/styles.css' // main style file
 import 'react-date-range/dist/theme/default.css' // theme css file
 
 // Create a client
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <AuthProvider>

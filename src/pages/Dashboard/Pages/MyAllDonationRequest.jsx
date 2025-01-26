@@ -7,6 +7,8 @@ import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import useAuth from "../../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
+import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
+import ErrorMessage from "../../../components/Shared/ErrorMessage";
 
 const MyDonationRequests = () => {
   const [filter, setFilter] = useState("");
@@ -15,6 +17,7 @@ const MyDonationRequests = () => {
   const axiosPublic = useAxiosPublic();
   const { user } = useAuth();
   const navigate = useNavigate();
+
 
   useEffect(() => {
     const fetchLocationData = async () => {
@@ -32,10 +35,10 @@ const MyDonationRequests = () => {
     fetchLocationData();
   }, []);
 
-  const { data: donationRequests = [], refetch } = useQuery({
-    queryKey: ["donationRequests"], // The query key
+  const { data: donationRequests = [], refetch, isLoading } = useQuery({
+    queryKey: ["donationRequests", filter],
     queryFn: async () => {
-      const { data } = await axiosPublic.get(`/my-all-donation-request/${user?.email}`);
+      const { data } = await axiosPublic.get(`/my-all-donation-request/${user?.email}?filter=${filter}`);
       return data;
     },
   });
@@ -80,9 +83,7 @@ const MyDonationRequests = () => {
     return `${district}, ${upazila}`;
   };
 
-  const filteredRequests = filter
-    ? donationRequests.filter((req) => req.donationStatus === filter)
-    : donationRequests;
+  if (isLoading) return <LoadingSpinner />;
 
   return (
     <div className="p-4">
@@ -106,75 +107,77 @@ const MyDonationRequests = () => {
         </select>
       </div>
 
-      <div className="overflow-x-auto">
-        <table className="table-auto w-full border-collapse border border-gray-200">
-          <thead>
-            <tr>
-            <th className="border px-4 py-2">#</th>
-              <th className="border px-4 py-2">Recipient Name</th>
-              <th className="border px-4 py-2">Location</th>
-              <th className="border px-4 py-2">Dolor Name</th>
-              <th className="border px-4 py-2">Dolor Email</th>
-              <th className="border px-4 py-2">Donation Date</th>
-              <th className="border px-4 py-2">Donation Time</th>
-              <th className="border px-4 py-2">Blood Group</th>
-              <th className="border px-4 py-2">Status</th>
-              <th className="border px-4 py-2">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredRequests?.map((request, index) => (
-              <tr key={request._id}>
-                <td className="border px-4 py-2">{index + 1}</td>
-                <td className="border px-4 py-2">{request.recipientName}</td>
-                <td className="border px-4 py-2">{getLocation(request.recipientDistrict, request.recipientUpazila)}</td>
-                <td className="border px-4 py-2">{new Date(request.donationDate).toLocaleDateString()}</td>
-                <td className="border px-4 py-2">{request?.donorName || "Pending"}</td>
-                <td className="border px-4 py-2">{request?.donorEmail || "Pending"}</td>
-                <td className="border px-4 py-2">{request.donationTime}</td>
-                <td className="border px-4 py-2">{request.bloodGroup}</td>
-                <td className="border px-4 py-2 capitalize">
-                  {request.donationStatus === "inprogress" ? (
-                    <select
-                      className="select select-bordered"
-                      value={request.donationStatus}
-                      onChange={(e) =>
-                        handleStatusChange(request._id, e.target.value)
-                      }
-                    >
-                      <option value="inprogress">In Progress</option>
-                      <option value="done">Done</option>
-                      <option value="canceled">Canceled</option>
-                    </select>
-                  ) : (
-                    request.donationStatus
-                  )}
-                </td>
-                <td className="border px-4 py-2 space-x-2 flex flex-col items-center gap-1 lg:flex-row lg:gap-0">
-                  <button
-                    className="btn bg-lightGreen text-white btn-sm"
-                    onClick={() => (window.location.href = `/dashboard/edit-donation-request/${request._id}`)}
-                  >
-                    <FaEdit />
-                  </button>
-                  <button
-                    className="btn bg-blood text-white btn-sm"
-                    onClick={() => handleDelete(request._id)}
-                  >
-                    <FaTrash />
-                  </button>
-                  <button
-                    className="btn btn-sm btn-info text-white"
-                    onClick={() => navigate(`/dashboard/donation-request/${request._id}`)}
-                  >
-                    <FaEye />
-                  </button>
-                </td>
+      {(donationRequests.length === 0) ? <ErrorMessage message={`You Have No Donation Request in ${filter}`} /> :
+
+        <div className="overflow-x-auto">
+          <table className="table-auto w-full border-collapse border border-gray-200">
+            <thead>
+              <tr>
+                <th className="border px-4 py-2">#</th>
+                <th className="border px-4 py-2">Recipient Name</th>
+                <th className="border px-4 py-2">Location</th>
+                <th className="border px-4 py-2">Dolor Name</th>
+                <th className="border px-4 py-2">Dolor Email</th>
+                <th className="border px-4 py-2">Donation Date</th>
+                <th className="border px-4 py-2">Donation Time</th>
+                <th className="border px-4 py-2">Blood Group</th>
+                <th className="border px-4 py-2">Status</th>
+                <th className="border px-4 py-2">Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {donationRequests?.map((request, index) => (
+                <tr key={request._id}>
+                  <td className="border px-4 py-2">{index + 1}</td>
+                  <td className="border px-4 py-2">{request.recipientName}</td>
+                  <td className="border px-4 py-2">{getLocation(request.recipientDistrict, request.recipientUpazila)}</td>
+                  <td className="border px-4 py-2">{request?.donorName || "Pending"}</td>
+                  <td className="border px-4 py-2">{request?.donorEmail || "Pending"}</td>
+                  <td className="border px-4 py-2">{new Date(request.donationDate).toLocaleDateString()}</td>
+                  <td className="border px-4 py-2">{request.donationTime}</td>
+                  <td className="border px-4 py-2">{request.bloodGroup}</td>
+                  <td className="border px-4 py-2 capitalize">
+                    {request.donationStatus === "inprogress" ? (
+                      <select
+                        className="select select-bordered"
+                        value={request.donationStatus}
+                        onChange={(e) =>
+                          handleStatusChange(request._id, e.target.value)
+                        }
+                      >
+                        <option value="inprogress">In Progress</option>
+                        <option value="done">Done</option>
+                        <option value="canceled">Canceled</option>
+                      </select>
+                    ) : (
+                      request.donationStatus
+                    )}
+                  </td>
+                  <td className="border px-4 py-2 space-x-2 flex flex-col items-center gap-1 lg:flex-row lg:gap-0">
+                    <button
+                      className="btn bg-lightGreen text-white btn-sm"
+                      onClick={() => (window.location.href = `/dashboard/edit-donation-request/${request._id}`)}
+                    >
+                      <FaEdit />
+                    </button>
+                    <button
+                      className="btn bg-blood text-white btn-sm"
+                      onClick={() => handleDelete(request._id)}
+                    >
+                      <FaTrash />
+                    </button>
+                    <button
+                      className="btn btn-sm btn-info text-white"
+                      onClick={() => navigate(`/dashboard/donation-request/${request._id}`)}
+                    >
+                      <FaEye />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>}
     </div>
   );
 };

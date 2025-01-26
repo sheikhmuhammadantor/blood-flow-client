@@ -12,7 +12,6 @@ const SearchPage = () => {
     const axiosPublic = useAxiosPublic();
 
     useEffect(() => {
-        // Fetch districts and upazilas from JSON files
         const fetchLocations = async () => {
             try {
                 const [districtsData, upazilasData] = await Promise.all([
@@ -28,6 +27,7 @@ const SearchPage = () => {
         fetchLocations();
     }, []);
 
+    // No Need tanstack query;
     const handleSearch = async () => {
         try {
             const { data } = await axiosPublic(`/donors/search`, {
@@ -46,8 +46,6 @@ const SearchPage = () => {
     return (
         <div className="p-6 space-y-6">
             <h1 className="text-2xl font-semibold mb-6">Search Donors</h1>
-
-            {/* Search Form */}
             <div className="bg-white shadow-md rounded-lg p-6">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     {/* Blood Group Selector */}

@@ -40,7 +40,7 @@ const Navbar = () => {
                         </li>
                         <li>
                             <NavLink to="/blogs" className={({ isActive }) => isActive ? "font-semibold bg-blood text-white focus:bg-blood focus:text-white" : ""}>
-                                Blogf
+                                Blog
                             </NavLink>
                         </li>
                         {user && (

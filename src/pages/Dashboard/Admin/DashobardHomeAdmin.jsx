@@ -14,6 +14,7 @@ const DashboardHomeAdmin = () => {
         totalBloodRequests: 0,
     });
 
+    // No Need tanstack query;
     useEffect(() => {
         const fetchStats = async () => {
             try {
@@ -34,7 +35,7 @@ const DashboardHomeAdmin = () => {
         };
 
         fetchStats();
-    }, []);
+    }, [axiosSecure]);
 
     return (
         <div className="p-4">

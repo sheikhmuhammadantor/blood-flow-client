@@ -80,7 +80,7 @@ const Login = () => {
           <div>
             <button
               type='submit'
-              className='bg-blood w-full rounded-md py-3 text-white'
+              className='btn bg-blood w-full text-white'
             >
               Continue
             </button>
