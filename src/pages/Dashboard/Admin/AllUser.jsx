@@ -8,8 +8,8 @@ import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 
 const AllUsers = () => {
   const [filter, setFilter] = useState("");
-  const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
+  const axiosPublic = useAxiosPublic();
   const [itemCount, setItemCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemPerPage, setItemPerPage] = useState(3);
