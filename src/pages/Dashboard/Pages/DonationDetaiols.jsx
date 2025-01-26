@@ -55,7 +55,7 @@ const DonationRequestDetails = () => {
     const handleDonate = async () => {
         const confirm = await Swal.fire({
             title: "Confirm Donation",
-            text: `Donor Name: ${user?.displayName}`,
+            html: `Donor Name: <strong>${user?.displayName}</strong><br>Donor Email: <strong>${user?.email}</strong>`,
             showCancelButton: true,
             confirmButtonText: "Confirm Donation",
         });

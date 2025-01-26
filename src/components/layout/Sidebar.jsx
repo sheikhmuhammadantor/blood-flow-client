@@ -57,7 +57,7 @@ const Sidebar = () => {
                             {(role === 'admin' || role === 'volunteer') && <li className='border border-blood rounded-xl'><NavLink to='all-blood-donation-request'>All Donation Request</NavLink></li>}
                             <li className='border border-blood rounded-xl'><NavLink to='create-donation-request'>Create Donation Request</NavLink></li>
                             {(role === 'admin') && <li className='border border-blood rounded-xl'><NavLink to='all-users'>All User</NavLink></li>}
-                            {(role === 'admin' || role === 'volunteer') && <li className='border border-blood rounded-xl'><NavLink to='content-management/add-blog'>Content Management</NavLink></li>}
+                            {(role === 'admin' || role === 'volunteer') && <li className='border border-blood rounded-xl'><NavLink to='content-management'>Content Management</NavLink></li>}
                         </ul>
                     </div>
                 </div>

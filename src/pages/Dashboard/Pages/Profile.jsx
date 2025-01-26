@@ -6,6 +6,7 @@ import useAuth from "../../../hooks/useAuth";
 import demoUser from "../../../assets/images/demoUser.png";
 import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const ProfilePage = () => {
     const [user, setUser] = useState(null);
@@ -14,6 +15,7 @@ const ProfilePage = () => {
     const [districts, setDistricts] = useState([]);
     const [upazilas, setUpazilas] = useState([]);
     const [filteredUpazilas, setFilteredUpazilas] = useState([]);
+    const navigate = useNavigate();
     const { user: authUser } = useAuth();
     const axiosPublic = useAxiosPublic();
     const imgbbApiKey = `${import.meta.env.VITE_IMAGE_HOSTING_KEY}`;
@@ -90,6 +92,7 @@ const ProfilePage = () => {
             await axiosPublic.put(`user/${authUser?.email}`, sefFormDate);
             setUser(sefFormDate);
             setIsEditing(false);
+            navigate('/dashboard/profile')
             toast.success("Profile updated successfully.");
         } catch (error) {
             console.log(error);

@@ -24,6 +24,7 @@ import AllUsers from '../pages/Dashboard/Admin/AllUser'
 import AddBlog from '../pages/Dashboard/Admin/AddBlog'
 import AdminRoute from './AdminRoute'
 import VolunteerRoute from './VolunteerRoute'
+import ContentManagement from '../pages/Dashboard/Admin/ContentManagement'
 
 export const router = createBrowserRouter([
   {
@@ -122,6 +123,16 @@ export const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <CreateDonationRequest />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: 'content-management',
+        element: (
+          <PrivateRoute>
+            <VolunteerRoute>
+              <ContentManagement />
+            </VolunteerRoute>
           </PrivateRoute>
         ),
       },

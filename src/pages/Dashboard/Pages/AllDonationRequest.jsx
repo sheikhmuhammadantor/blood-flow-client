@@ -7,6 +7,7 @@ import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import { useNavigate } from "react-router-dom";
 import useRole from "../../../hooks/useRole";
+import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 
 const AllDonationRequests = () => {
   const [filter, setFilter] = useState("");
@@ -15,6 +16,9 @@ const AllDonationRequests = () => {
   const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
   const { role } = useRole()
+  const [itemCount, setItemCount] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemPerPage, setItemPerPage] = useState(3);
 
   useEffect(() => {
     const fetchLocationData = async () => {
@@ -32,10 +36,23 @@ const AllDonationRequests = () => {
     fetchLocationData();
   }, []);
 
-  const { data: donationRequests = [], refetch } = useQuery({
-    queryKey: ["donationRequests"], // The query key
+  useEffect(() => {
+    axiosPublic.get(`/all-donation-count`, { params: { status: filter } })
+      .then(({ data }) => {
+        setItemCount(data?.count);
+      });
+  }, [axiosPublic, filter]);
+
+  const { data: donationRequests = [], refetch, isLoading } = useQuery({
+    queryKey: ["donationRequests", filter, currentPage, itemPerPage],
     queryFn: async () => {
-      const { data } = await axiosPublic.get(`/all-blood-donation-request`);
+      const { data } = await axiosPublic.get(`/all-blood-donation-request`, {
+        params: {
+          filter,
+          skip: (currentPage - 1) * itemPerPage,
+          limit: itemPerPage,
+        }
+      });
       return data;
     },
   });
@@ -81,9 +98,23 @@ const AllDonationRequests = () => {
     return `${district}, ${upazila}`;
   };
 
-  const filteredRequests = filter
-    ? donationRequests.filter((req) => req.donationStatus === filter)
-    : donationRequests;
+  const numberOfPage = Math.ceil(itemCount / itemPerPage);
+  const pages = [...Array(numberOfPage).keys()];
+
+  const handelItemParPage = e => {
+    setItemPerPage(parseInt(e.target.value))
+    setCurrentPage(1)
+  }
+
+  const handelPrevPage = () => {
+    if (currentPage > 1) setCurrentPage(currentPage - 1)
+  }
+
+  const handelNextPage = () => {
+    if (currentPage < numberOfPage) setCurrentPage(currentPage + 1)
+  }
+
+  if (isLoading) return <LoadingSpinner />;
 
   return (
     <div className="p-4">
@@ -124,7 +155,7 @@ const AllDonationRequests = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredRequests?.map((request, index) => (
+            {donationRequests?.map((request, index) => (
               <tr key={request._id}>
                 <td className="border px-4 py-2">{index + 1}</td>
                 <td className="border px-4 py-2">{request.recipientName}</td>
@@ -179,6 +210,21 @@ const AllDonationRequests = () => {
             ))}
           </tbody>
         </table>
+      </div>
+      <div className="text-center flex justify-center gap-2 pt-8">
+        <button onClick={handelPrevPage} className="btn btn-sm bg-white text-blood ring ring-blood px-6">Prev</button>
+        {
+          pages?.map(page =>
+            <button onClick={() => setCurrentPage(page + 1)} className={`btn btn-sm ${currentPage === page + 1 ? 'bg-blood text-white hover:bg-blood hover:text-white' : ''}`} key={page}>
+              {page + 1}
+            </button>)
+        }
+        <button onClick={handelNextPage} className="btn btn-sm bg-white text-blood ring ring-blood px-6">Next</button>
+        <select value={itemPerPage} onChange={handelItemParPage} className="btn btn-sm bg-white text-blood ring ring-blood focus:outline-none">
+          <option value="3">3</option>
+          <option value="6">6</option>
+          <option value="9">9</option>
+        </select>
       </div>
     </div>
   );

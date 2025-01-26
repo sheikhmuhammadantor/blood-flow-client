@@ -1,12 +1,12 @@
+import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-// import { Helmet } from "react-helmet";
 
 function ErrorPage() {
     return (
         <div className="h-screen w-full flex flex-col justify-center items-center bg-[#1A2238]">
-            {/* <Helmet>
+            <Helmet>
                 <title>Oops | Error Happen</title>
-            </Helmet> */}
+            </Helmet>
             <h1 className="text-9xl font-extrabold text-[#ff0000] tracking-widest">404</h1>
             <div className="bg-[#16ac16] px-2 text-sm rounded rotate-12 absolute text-white">
                 Page Not Found

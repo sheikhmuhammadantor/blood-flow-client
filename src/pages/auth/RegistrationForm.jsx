@@ -37,7 +37,6 @@ const RegistrationForm = () => {
         loadGeoData();
     }, []);
 
-    // Filter upazilas based on selected district
     useEffect(() => {
         const filtered = upazilas.filter(
             (upazila) => upazila.district_id === formData.district
