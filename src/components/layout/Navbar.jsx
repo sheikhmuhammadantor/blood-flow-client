@@ -10,6 +10,20 @@ const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const location = useLocation()
 
+    const links = <>
+        <li>
+            <NavLink to="/dashboard/profile" className={({ isActive }) => isActive ? "font-semibold text-primary" : ""}>
+                Profile
+            </NavLink>
+            <NavLink to="/dashboard/my-donation-requests" className={({ isActive }) => isActive ? "font-semibold text-primary" : ""}>
+                My Requests
+            </NavLink>
+            <NavLink to="/dashboard/create-donation-request" className={({ isActive }) => isActive ? "font-semibold text-primary" : ""}>
+                Create Request
+            </NavLink>
+        </li>
+    </>
+
     const handelLogout = () => {
         logOut()
             .then(res => console.log(res))
@@ -49,6 +63,14 @@ const Navbar = () => {
                                 Blog
                             </NavLink>
                         </li>
+                        {
+                            user ? '' :
+                                <li>
+                                    <NavLink to="/search-donor" className={({ isActive }) => isActive ? "font-semibold bg-blood text-white focus:bg-blood focus:text-white" : ""}>
+                                        Search Donor
+                                    </NavLink>
+                                </li>
+                        }
                         {user && (
                             <li>
                                 <NavLink to="/funding" className={({ isActive }) => isActive ? "font-semibold bg-blood text-white focus:bg-blood focus:text-white" : ""}>
@@ -70,6 +92,7 @@ const Navbar = () => {
                                 tabIndex={0}
                                 className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
                             >
+                                {links}
                                 <li>
                                     <NavLink to="/dashboard" className={({ isActive }) => isActive ? "font-semibold text-primary" : ""}>
                                         Dashboard

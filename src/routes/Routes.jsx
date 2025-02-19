@@ -6,7 +6,6 @@ import MainLayout from '../layouts/MainLayout'
 import PrivateRoute from './PrivateRoute'
 import DashboardLayout from '../layouts/DashboardLayout'
 import ContactUs from '../pages/Home/ContactUs'
-import FeaturedSection from '../pages/Home/FeaturedSection'
 import BlogPage from '../pages/public/Blog'
 import BlogDetails from '../components/Shared/BlogDetails'
 import RegistrationForm from '../pages/auth/RegistrationForm'
@@ -25,6 +24,7 @@ import AddBlog from '../pages/Dashboard/Admin/AddBlog'
 import AdminRoute from './AdminRoute'
 import VolunteerRoute from './VolunteerRoute'
 import ContentManagement from '../pages/Dashboard/Admin/ContentManagement'
+import AboutBFlow from '../pages/public/AboutBFlow'
 
 export const router = createBrowserRouter([
   {
@@ -38,7 +38,7 @@ export const router = createBrowserRouter([
       },
       {
         path: '/about-us',
-        element: <FeaturedSection />,
+        element: <AboutBFlow />,
       },
       {
         path: '/contact-us',
