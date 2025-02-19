@@ -37,7 +37,6 @@ const DonationRequestDetails = () => {
             try {
                 const { data } = await axiosPublic.get(`/donation-request/${id}`);
                 setDonationRequest(data);
-                console.log(data);
             } catch (error) {
                 console.error("Failed to fetch donation request details:", error);
             }

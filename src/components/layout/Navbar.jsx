@@ -3,10 +3,12 @@ import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import logo from '../../assets/images/logo.png'
 import { FiMenu, FiX } from "react-icons/fi";
+import { Navigate, useLocation } from 'react-router-dom'
 
 const Navbar = () => {
     const { user, logOut } = useAuth();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const location = useLocation()
 
     const handelLogout = () => {
         logOut()
@@ -17,6 +19,10 @@ const Navbar = () => {
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
+
+    const handelLogin = () => {
+        <Navigate to='/login' state={{ from: location }} replace='true' />
+    }
 
     return (
         <section className="shadow-md bg-base-100">
@@ -77,7 +83,7 @@ const Navbar = () => {
                             </ul>
                         </div>
                     ) : (
-                        <NavLink to="/login" className="btn bg-blood text-white btn-sm">
+                        <NavLink onClick={handelLogin} to='/login' className="btn bg-blood text-white btn-sm">
                             Login
                         </NavLink>
                     )}
