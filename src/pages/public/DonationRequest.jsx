@@ -6,6 +6,7 @@ const BloodDonationRequests = () => {
     const [requests, setRequests] = useState([]);
     const [districts, setDistricts] = useState([]);
     const [upazilas, setUpazilas] = useState([]);
+    const [sort, setSort] = useState("");
     const navigate = useNavigate();
     const axiosPublic = useAxiosPublic();
 
@@ -14,7 +15,7 @@ const BloodDonationRequests = () => {
         const fetchDonationRequests = async () => {
             try {
                 const { data } = await axiosPublic.get("/donation-requests", {
-                    params: { donationStatus: "pending" },
+                    params: { donationStatus: "pending", sort },
                 });
                 setRequests(data);
             } catch (error) {
@@ -35,7 +36,7 @@ const BloodDonationRequests = () => {
 
         fetchDonationRequests();
         fetchLocations();
-    }, [axiosPublic]);
+    }, [axiosPublic, sort]);
 
     const handleViewDetails = (id) => {
         navigate(`/donation-request/${id}`);
@@ -47,6 +48,22 @@ const BloodDonationRequests = () => {
     return (
         <div className="p-6">
             <h1 className="text-2xl font-semibold mb-4">Blood Donation Requests</h1>
+            {/* Sorting */}
+            <div className="mb-4 flex items-center gap-4">
+                <label htmlFor="sorting" className="font-medium">
+                    Sort by Date:
+                </label>
+                <select
+                    id="sorting"
+                    value={sort}
+                    onChange={(e) => setSort(e.target.value)}
+                    className="select select-bordered"
+                >
+                    <option value="">None</option>
+                    <option value="asc">ASC</option>
+                    <option value="desc">DEC</option>
+                </select>
+            </div>
             <div className="overflow-x-auto">
                 <table className="table-auto table-zebra w-full">
                     <thead>

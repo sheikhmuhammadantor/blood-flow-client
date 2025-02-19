@@ -11,7 +11,6 @@ import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 
 const AllDonationRequests = () => {
   const [filter, setFilter] = useState("");
-  // eslint-disable-next-line no-unused-vars
   const [sort, setSort] = useState("");
   const [districts, setDistricts] = useState([]);
   const [upazilas, setUpazilas] = useState([]);
