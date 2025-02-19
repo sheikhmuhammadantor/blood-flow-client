@@ -1,4 +1,3 @@
-import { FaNewspaper } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const BlogNewsSection = () => {
@@ -24,10 +23,9 @@ const BlogNewsSection = () => {
     ];
 
     return (
-        <div className="bg-gray-100 flex flex-col items-center py-6 px-4 rounded-xl shadow-lg my-12">
+        <div className="bg-gray-100 flex flex-col items-center py-12 px-4 rounded-xl shadow-lg my-12">
             <div className="container mx-auto max-w-3xl">
                 <div className="text-center">
-                    <FaNewspaper className="text-blood text-5xl mb-4" />
                     <h2 className="text-3xl font-bold text-gray-800">Latest Blog & News</h2>
                     <p className="mt-2 text-lg text-gray-600">Stay updated with the latest news and insights on blood donation.</p>
                 </div>
