@@ -2,6 +2,8 @@ import { Helmet } from 'react-helmet-async'
 import Banner from './Banner'
 import FeaturedSection from './FeaturedSection'
 import ContactUs from './ContactUs'
+import LandingPage from './LandingPage'
+import AboutUs from './AboutUs'
 
 const Home = () => {
   return (
@@ -12,6 +14,9 @@ const Home = () => {
       <div>
         <Banner />
         <FeaturedSection />
+        <AboutUs />
+        <br />
+        <LandingPage />
         <ContactUs />
       </div>
     </>
