@@ -4,6 +4,8 @@ import FeaturedSection from './FeaturedSection'
 import ContactUs from './ContactUs'
 import LandingPage from './LandingPage'
 import AboutUs from './AboutUs'
+import FAQSection from './FAQ'
+import BlogNewsSection from './BlogNews'
 
 const Home = () => {
   return (
@@ -15,8 +17,9 @@ const Home = () => {
         <Banner />
         <FeaturedSection />
         <AboutUs />
-        <br />
+        <BlogNewsSection />
         <LandingPage />
+        <FAQSection />
         <ContactUs />
       </div>
     </>

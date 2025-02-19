@@ -4,7 +4,7 @@ import banner from '../../assets/images/hero.png'
 function Banner() {
     return (
         <div
-            className="hero min-h-[70vh] bg-cover bg-center bg-no-repeat bg-gray-950/75 bg-blend-overlay rounded-xl"
+            className="hero min-h-[70vh] bg-cover bg-center bg-no-repeat bg-gray-950/75 bg-blend-overlay rounded-xl mb-12"
             style={{
                 backgroundImage: `url(${banner})`,
             }}>

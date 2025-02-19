@@ -2,8 +2,8 @@ import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 
 const ContactUs = () => {
     return (
-        <div className="bg-base-100 py-12">
-            <div className="text-center mb-12">
+        <div className="bg-base-100 my-12">
+            <div className="text-center mb-8">
                 <h2 className="text-4xl font-bold text-blood">Contact Us</h2>
                 <p className="text-gray-600 mt-4 text-lg">
                     We’re here to help! Reach out to us with your questions or feedback.
