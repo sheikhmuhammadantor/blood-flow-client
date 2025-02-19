@@ -11,6 +11,8 @@ import LoadingSpinner from "../../../components/Shared/LoadingSpinner";
 
 const AllDonationRequests = () => {
   const [filter, setFilter] = useState("");
+  // eslint-disable-next-line no-unused-vars
+  const [sort, setSort] = useState("");
   const [districts, setDistricts] = useState([]);
   const [upazilas, setUpazilas] = useState([]);
   const axiosPublic = useAxiosPublic();
@@ -44,11 +46,12 @@ const AllDonationRequests = () => {
   }, [axiosPublic, filter]);
 
   const { data: donationRequests = [], refetch, isLoading } = useQuery({
-    queryKey: ["donationRequests", filter, currentPage, itemPerPage],
+    queryKey: ["donationRequests", filter, sort, currentPage, itemPerPage],
     queryFn: async () => {
       const { data } = await axiosPublic.get(`/all-blood-donation-request`, {
         params: {
           filter,
+          sort,
           skip: (currentPage - 1) * itemPerPage,
           limit: itemPerPage,
         }
@@ -118,24 +121,42 @@ const AllDonationRequests = () => {
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">My Donation Requests</h1>
+      <h1 className="text-2xl font-bold mb-4">All Donation Requests</h1>
 
-      <div className="mb-4 flex items-center gap-4">
-        <label htmlFor="filter" className="font-medium">
-          Filter by Status:
-        </label>
-        <select
-          id="filter"
-          value={filter}
-          onChange={(e) => setFilter(e.target.value)}
-          className="select select-bordered"
-        >
-          <option value="">All</option>
-          <option value="pending">Pending</option>
-          <option value="inprogress">In Progress</option>
-          <option value="done">Done</option>
-          <option value="canceled">Canceled</option>
-        </select>
+      <div className="flex gap-6">
+        <div className="mb-4 flex items-center gap-4">
+          <label htmlFor="filter" className="font-medium">
+            Filter by Status:
+          </label>
+          <select
+            id="filter"
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
+            className="select select-bordered"
+          >
+            <option value="">All</option>
+            <option value="pending">Pending</option>
+            <option value="inprogress">In Progress</option>
+            <option value="done">Done</option>
+            <option value="canceled">Canceled</option>
+          </select>
+        </div>
+        {/* Sorting */}
+        <div className="mb-4 flex items-center gap-4">
+          <label htmlFor="sorting" className="font-medium">
+            Sort by Date:
+          </label>
+          <select
+            id="sorting"
+            value={sort}
+            onChange={(e) => setSort(e.target.value)}
+            className="select select-bordered"
+          >
+            <option value="">None</option>
+            <option value="asc">ASC</option>
+            <option value="desc">DEC</option>
+          </select>
+        </div>
       </div>
 
       <div className="overflow-x-auto">
