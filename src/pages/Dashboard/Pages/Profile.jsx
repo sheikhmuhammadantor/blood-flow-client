@@ -165,58 +165,73 @@ const ProfilePage = () => {
                             className="input input-bordered w-full bg-gray-200"
                         />
                     </div>
-                    <div className="form-control">
-                        <label className="label">Blood Group</label>
-                        <select
-                            name="bloodGroup"
-                            value={formData.bloodGroup}
-                            onChange={handleInputChange}
-                            className="select select-bordered w-full"
-                            disabled={!isEditing}
-                        >
-                            <option value="A+">A+</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B-">B-</option>
-                            <option value="AB+">AB+</option>
-                            <option value="AB-">AB-</option>
-                            <option value="O+">O+</option>
-                            <option value="O-">O-</option>
-                        </select>
+                    <div className="flex flex-col lg:flex-row items-center justify-center gap-6">
+                        <div className="form-control w-full">
+                            <label className="label">Blood Group</label>
+                            <select
+                                name="bloodGroup"
+                                value={formData.bloodGroup}
+                                onChange={handleInputChange}
+                                className="select select-bordered w-full"
+                                disabled={!isEditing}
+                            >
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+                            </select>
+                        </div>
+                        <div className="form-control w-full">
+                            <label className="label">Phone</label>
+                            <input
+                                type="text"
+                                name="phone"
+                                value={formData.phone}
+                                onChange={handleInputChange}
+                                className="input input-bordered w-full"
+                                readOnly={!isEditing}
+                            />
+                        </div>
                     </div>
-                    <div className="form-control">
-                        <label className="label">District</label>
-                        <select
-                            name="district"
-                            value={formData.district}
-                            onChange={handleInputChange}
-                            className="select select-bordered w-full"
-                            disabled={!isEditing}
-                        >
-                            <option value="">Select District</option>
-                            {districts?.map((district) => (
-                                <option key={district.id} value={district.id}>
-                                    {district.name}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-                    <div className="form-control">
-                        <label className="label">Upazila</label>
-                        <select
-                            name="upazila"
-                            value={formData.upazila}
-                            onChange={handleInputChange}
-                            className="select select-bordered w-full"
-                            disabled={!isEditing}
-                        >
-                            <option value="">Select Upazila</option>
-                            {filteredUpazilas?.map((upazila) => (
-                                <option key={upazila?.id} value={upazila?.id}>
-                                    {upazila?.name}
-                                </option>
-                            ))}
-                        </select>
+                    <div className="flex flex-col lg:flex-row items-center justify-center gap-6">
+                        <div className="form-control w-full">
+                            <label className="label">District</label>
+                            <select
+                                name="district"
+                                value={formData.district}
+                                onChange={handleInputChange}
+                                className="select select-bordered w-full"
+                                disabled={!isEditing}
+                            >
+                                <option value="">Select District</option>
+                                {districts?.map((district) => (
+                                    <option key={district.id} value={district.id}>
+                                        {district.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        <div className="form-control w-full">
+                            <label className="label">Upazila</label>
+                            <select
+                                name="upazila"
+                                value={formData.upazila}
+                                onChange={handleInputChange}
+                                className="select select-bordered w-full"
+                                disabled={!isEditing}
+                            >
+                                <option value="">Select Upazila</option>
+                                {filteredUpazilas?.map((upazila) => (
+                                    <option key={upazila?.id} value={upazila?.id}>
+                                        {upazila?.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
                     </div>
                 </form>
             </div>
