@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
+// import useAuth from "../../hooks/useAuth";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const BloodDonationRequests = () => {
@@ -9,7 +9,7 @@ const BloodDonationRequests = () => {
     const [upazilas, setUpazilas] = useState([]);
     const navigate = useNavigate();
     const axiosPublic = useAxiosPublic();
-    const { user } = useAuth();
+    // const { user } = useAuth();
 
     // No Need tanstack query;
     useEffect(() => {
@@ -40,11 +40,11 @@ const BloodDonationRequests = () => {
     }, [axiosPublic]);
 
     const handleViewDetails = (id) => {
-        if (user) {
-            navigate(`/dashboard/donation-request/${id}`);
-        } else {
-            navigate("/login");
-        }
+        navigate(`/donation-request/${id}`);
+        // if (user) {
+        // } else {
+        //     navigate("/login");
+        // }
     };
 
     const getDistrictName = (id) => districts.find((d) => d.id === id)?.name || "Unknown";

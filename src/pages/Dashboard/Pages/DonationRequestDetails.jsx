@@ -53,6 +53,12 @@ const DonationRequestDetails = () => {
     };
 
     const handleDonate = async () => {
+
+        if (!user) {
+            Swal.fire("Error", "You need to login to donate.", "error");
+            return;
+        }
+
         const confirm = await Swal.fire({
             title: "Confirm Donation",
             html: `Donor Name: <strong>${user?.displayName}</strong><br>Donor Email: <strong>${user?.email}</strong>`,
@@ -116,7 +122,7 @@ const DonationRequestDetails = () => {
                 <p><strong>Message:</strong> {requestMessage}</p>
             </div>
 
-            {donationStatus === "pending" && (
+            {(donationStatus === "pending" && user?.email) && (
                 <form className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                     <div className="form-control">
                         <label className="label">Donor Name</label>
