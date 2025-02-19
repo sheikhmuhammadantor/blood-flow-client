@@ -52,6 +52,7 @@ const Sidebar = () => {
                     {/* Nav Items */}
                     <div className='flex flex-col justify-between flex-1 mt-6'>
                         <ul className="menu bg-base-200 rounded-box space-y-2">
+                            {(role === 'admin') && <li className='border border-blood rounded-xl'><NavLink to='/dashboard/overview'>Overview</NavLink></li>}
                             <li className='border border-blood rounded-xl'><NavLink to='profile'>Profile</NavLink></li>
                             <li className='border border-blood rounded-xl'><NavLink to='my-donation-requests'>My Donation Request</NavLink></li>
                             {(role === 'admin' || role === 'volunteer') && <li className='border border-blood rounded-xl'><NavLink to='all-blood-donation-request'>All Donation Request</NavLink></li>}

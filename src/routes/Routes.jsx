@@ -85,6 +85,16 @@ export const router = createBrowserRouter([
         ),
       },
       {
+        path: 'overview',
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <DashboardHome />
+            </AdminRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
         path: 'my-donation-requests',
         element: (
           <PrivateRoute>
