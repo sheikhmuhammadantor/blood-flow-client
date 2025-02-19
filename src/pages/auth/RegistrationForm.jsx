@@ -100,8 +100,8 @@ const RegistrationForm = () => {
     };
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-gray-100">
-            <div className="w-full max-w-md p-6 bg-white shadow-lg rounded-lg">
+        <div className="flex justify-center items-center min-h-screen bg-base-100">
+            <div className="w-full max-w-md p-6 bg-base-200 shadow-lg rounded-lg">
                 <h2 className="text-2xl font-bold text-center mb-6 text-blood">Register</h2>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <input
@@ -111,7 +111,7 @@ const RegistrationForm = () => {
                         value={formData.email}
                         onChange={handleInputChange}
                         required
-                        className="input input-bordered w-full focus:outline-blood bg-gray-200"
+                        className="input input-bordered w-full focus:outline-blood"
                     />
                     <input
                         type="text"
@@ -120,21 +120,21 @@ const RegistrationForm = () => {
                         value={formData.name}
                         onChange={handleInputChange}
                         required
-                        className="input input-bordered w-full focus:outline-blood bg-gray-200"
+                        className="input input-bordered w-full focus:outline-blood"
                     />
                     <input
                         type="file"
                         name="avatar"
                         accept="image/*"
                         onChange={handleAvatarUpload}
-                        className="file-input file-input-bordered w-full focus:outline-blood bg-gray-200"
+                        className="file-input file-input-bordered w-full focus:outline-blood"
                     />
                     <select
                         name="bloodGroup"
                         value={formData.bloodGroup}
                         onChange={handleInputChange}
                         required
-                        className="select select-bordered w-full focus:outline-blood bg-gray-200"
+                        className="select select-bordered w-full focus:outline-blood"
                     >
                         <option value="A+">A+</option>
                         <option value="A-">A-</option>
@@ -150,7 +150,7 @@ const RegistrationForm = () => {
                         value={formData.district}
                         onChange={handleInputChange}
                         required
-                        className="select select-bordered w-full focus:outline-blood bg-gray-200"
+                        className="select select-bordered w-full focus:outline-blood"
                     >
                         <option value="">Select District</option>
                         {districts.map((district) => (
@@ -164,7 +164,7 @@ const RegistrationForm = () => {
                         value={formData.upazila}
                         onChange={handleInputChange}
                         required
-                        className="select select-bordered w-full focus:outline-blood bg-gray-200"
+                        className="select select-bordered w-full focus:outline-blood"
                     >
                         <option value="">Select Upazila</option>
                         {filteredUpazilas.map((upazila) => (
@@ -180,7 +180,7 @@ const RegistrationForm = () => {
                         value={formData.password}
                         onChange={handleInputChange}
                         required
-                        className="input input-bordered w-full focus:outline-blood bg-gray-200"
+                        className="input input-bordered w-full focus:outline-blood"
                     />
                     <input
                         type="password"
@@ -189,18 +189,18 @@ const RegistrationForm = () => {
                         value={formData.confirmPassword}
                         onChange={handleInputChange}
                         required
-                        className="input input-bordered w-full focus:outline-blood bg-gray-200"
+                        className="input input-bordered w-full focus:outline-blood"
                     />
                     <button type="submit" className="btn bg-blood text-white w-full">
                         Register
                     </button>
                 </form>
                 <div className='flex items-center pt-4 space-x-1'>
-                    <div className='flex-1 h-px sm:w-16 dark:bg-gray-700'></div>
-                    <p className='px-3 text-sm dark:text-gray-400'>
+                    <div className='flex-1 h-px sm:w-16'></div>
+                    <p className='px-3 text-sm'>
                         or Have an accounts
                     </p>
-                    <div className='flex-1 h-px sm:w-16 dark:bg-gray-700'></div>
+                    <div className='flex-1 h-px sm:w-16'></div>
                 </div>
                 {/* <div
                           onClick={handleGoogleSignIn}
@@ -210,7 +210,7 @@ const RegistrationForm = () => {
                 
                           <p>Continue with Google</p>
                         </div> */}
-                <p className='px-6 text-sm text-center text-gray-400'>
+                <p className='px-6 text-sm text-center text-base-content'>
                     Already Have an Account?{' '}
                     <Link
                         to='/login'

@@ -105,8 +105,8 @@ const ProfilePage = () => {
     }
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-gray-100">
-            <div className="w-full max-w-3xl p-6 bg-white shadow-lg rounded-lg">
+        <div className="flex justify-center items-center min-h-screen bg-base-200">
+            <div className="w-full max-w-3xl p-6 bg-base-100 shadow-lg rounded-lg">
                 <div className="flex justify-end">
                     {isEditing ? (
                         <button
@@ -162,7 +162,7 @@ const ProfilePage = () => {
                             type="email"
                             value={user.email}
                             readOnly
-                            className="input input-bordered w-full bg-gray-200"
+                            className="input input-bordered w-full"
                         />
                     </div>
                     <div className="flex flex-col lg:flex-row items-center justify-center gap-6">

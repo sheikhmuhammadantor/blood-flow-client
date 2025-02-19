@@ -39,7 +39,7 @@ const Navbar = () => {
     }
 
     return (
-        <section className="shadow-md bg-base-100">
+        <section className="shadow-md bg-base-100 text-base-content">
             <div className="navbar bg-base-100 max-w-[2520px] mx-auto xl:px-20 md:px-10 sm:px-2 px-4 fixed left-[50%] -translate-x-[50%] z-10">
                 <div className="navbar-start flex items-center">
                     <div className="flex items-center">
@@ -52,7 +52,7 @@ const Navbar = () => {
                     </div>
                 </div>
                 <div className={`navbar-center lg:flex ${isMenuOpen ? "absolute" : "hidden"} top-16 left-11`}>
-                    <ul className="menu menu-compact lg:menu-horizontal px-1 bg-slate-500/95 lg:bg-transparent rounded-xl lg:rounded-none lg:shadow-none shadow-xl text-white font-semibold lg:text-black">
+                    <ul className="menu menu-compact lg:menu-horizontal px-1 bg-slate-500/95 lg:bg-transparent rounded-xl lg:rounded-none lg:shadow-none shadow-xl text-white font-semibold lg:text-base-content">
                         <li>
                             <NavLink to="/donation-requests" className={({ isActive }) => isActive ? "font-semibold bg-blood text-white focus:bg-blood focus:text-white" : ""}>
                                 Donation Requests

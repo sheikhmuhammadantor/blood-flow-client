@@ -27,7 +27,7 @@ function BlogDetails() {
 
     return (
         <div className="container mx-auto px-4 my-8">
-            <div className="bg-white shadow-md rounded-lg overflow-hidden mx-auto w-full max-w-[800px]">
+            <div className="bg-base-300 shadow-md rounded-lg overflow-hidden mx-auto w-full max-w-[800px]">
                 {blog.thumbnail && (
                     <img
                         src={blog.thumbnail}
@@ -39,7 +39,7 @@ function BlogDetails() {
                     <h3 className="text-3xl font-semibold text-red-600">
                         {blog.title}
                     </h3>
-                    <div dangerouslySetInnerHTML={{ __html: blog.content }} className="text-gray-600 mt-2"></div>
+                    <div dangerouslySetInnerHTML={{ __html: blog.content }} className="text-base-content mt-2"></div>
                 </div>
             </div>
         </div>

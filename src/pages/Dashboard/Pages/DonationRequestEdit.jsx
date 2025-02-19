@@ -78,7 +78,7 @@ const EditDonationRequest = () => {
     };
 
     return (
-        <div className="max-w-4xl mx-auto mt-10 p-6 bg-white rounded-lg shadow">
+        <div className="max-w-4xl mx-auto mt-10 p-6 bg-base-300 rounded-lg shadow">
             <h1 className="text-2xl font-bold mb-6">Edit Donation Request</h1>
             <form onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -90,7 +90,7 @@ const EditDonationRequest = () => {
                             value={formData.requesterName}
                             readOnly
                             onChange={handleInputChange}
-                            className="input input-bordered w-full bg-gray-200"
+                            className="input input-bordered w-full"
                         />
                     </div>
 
@@ -102,7 +102,7 @@ const EditDonationRequest = () => {
                             value={formData.requesterEmail}
                             readOnly
                             onChange={handleInputChange}
-                            className="input input-bordered w-full bg-gray-200"
+                            className="input input-bordered w-full"
                         />
                     </div>
 

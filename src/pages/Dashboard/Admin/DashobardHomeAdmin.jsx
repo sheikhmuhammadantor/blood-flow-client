@@ -40,7 +40,7 @@ const DashboardHomeAdmin = () => {
     return (
         <div className="p-4">
             {/* Welcome Section */}
-            <div className="bg-blue-100 p-6 rounded-lg shadow-md text-center mb-6">
+            <div className="dark:bg-gray-900 bg-blue-100 p-6 rounded-lg shadow-md text-center mb-6">
                 <h1 className="text-2xl font-bold text-blue-800">Welcome to the Dashboard!</h1>
                 <p className="text-blue-500"><span className="text-blood text-xl capitalize">{role} :</span> {user?.displayName}</p>
                 <p className="text-blue-700 mt-2">Manage and oversee all activities at a glance.</p>

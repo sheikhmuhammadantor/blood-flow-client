@@ -25,19 +25,19 @@ const BlogPage = () => {
   }
 
   return (
-    <div className="bg-gray-100 py-8">
+    <div className="bg-base-100 py-8 my-12 rounded-xl shadow-lg">
       <div className="container mx-auto px-4">
         <h2 className="text-4xl font-bold text-center text-red-600 mb-4">
           Our Blog
         </h2>
-        <p className="text-center text-gray-600 mb-8">
+        <p className="text-center text-base-content mb-8">
           Stay informed and learn more about the importance of blood donation.
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12">
           {blogs.map((blog) => (
             <div
               key={blog._id}
-              className="bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow mx-auto w-full max-w-[400px]"
+              className="bg-base-300 shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow mx-auto w-full max-w-[400px]"
             >
               {blog.thumbnail && (
                 <img

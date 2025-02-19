@@ -83,8 +83,8 @@ const CreateDonationRequest = () => {
     if (status === 'blocked') return <div className="text-center text-red-500 mt-12">Your account is blocked. You cannot create donation requests.</div>;
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-gray-100">
-            <div className="w-full max-w-4xl p-6 bg-white shadow-lg rounded-lg">
+        <div className="flex justify-center items-center min-h-screen bg-base-200">
+            <div className="w-full max-w-4xl p-6 bg-base-100 shadow-lg rounded-lg">
                 <h2 className="text-2xl font-bold text-center mb-6 text-blood">Create Donation Request</h2>
                 <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                     <div className="form-control">
@@ -93,7 +93,7 @@ const CreateDonationRequest = () => {
                             type="text"
                             value={user?.displayName}
                             readOnly
-                            className="input input-bordered w-full bg-gray-200"
+                            className="input input-bordered w-full"
                         />
                     </div>
                     <div className="form-control">
@@ -102,7 +102,7 @@ const CreateDonationRequest = () => {
                             type="email"
                             value={user?.email}
                             readOnly
-                            className="input input-bordered w-full bg-gray-200"
+                            className="input input-bordered w-full"
                         />
                     </div>
                     <div className="form-control">

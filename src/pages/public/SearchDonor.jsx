@@ -46,7 +46,7 @@ const SearchPage = () => {
     return (
         <div className="p-6 space-y-6">
             <h1 className="text-2xl font-semibold mb-6">Search Donors</h1>
-            <div className="bg-white shadow-md rounded-lg p-6">
+            <div className="bg-base-300 shadow-md rounded-lg p-6">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     {/* Blood Group Selector */}
                     <div>
@@ -125,7 +125,7 @@ const SearchPage = () => {
                     <h2 className="text-xl font-semibold mb-4">Found Donors</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         {donors?.map((donor) => (
-                            <div key={donor._id} className="bg-white shadow-md rounded-lg p-4 border">
+                            <div key={donor._id} className="bg-base-300 text-base-content shadow-md rounded-lg p-4 border">
                                 <p><strong>Name:</strong> {donor.name}</p>
                                 <p><strong>Email:</strong> {donor.email}</p>
                                 <p><strong>Blood Group:</strong> {donor.bloodGroup}</p>
