@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
-import useAuth from "../../hooks/useAuth";
 import axios from "axios";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import LoadingSpinner from "../../components/Shared/LoadingSpinner";
+import useAuth from "../../hooks/useAuth";
 
 const RegistrationForm = () => {
     const navigate = useNavigate();
@@ -96,7 +96,7 @@ const RegistrationForm = () => {
             if (res.data.insertedId) toast.success("Registration successful!");
         } catch (error) {
             console.error("Registration failed:", error);
-        } finally{setLoading(false)};
+        } finally { setLoading(false) };
     };
 
     return (
@@ -202,19 +202,11 @@ const RegistrationForm = () => {
                     </p>
                     <div className='flex-1 h-px sm:w-16'></div>
                 </div>
-                {/* <div
-                          onClick={handleGoogleSignIn}
-                          className='flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded cursor-pointer'
-                        >
-                          <FcGoogle size={32} />
-                
-                          <p>Continue with Google</p>
-                        </div> */}
                 <p className='px-6 text-sm text-center text-base-content'>
                     Already Have an Account?{' '}
                     <Link
                         to='/login'
-                        className='hover:underline hover:text-blood text-gray-600'
+                        className='hover:underline hover:text-blood text-gray-600 font-bold'
                     >
                         login
                     </Link>

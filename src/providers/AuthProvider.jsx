@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from 'react'
+import axios from 'axios'
 import {
   createUserWithEmailAndPassword,
   getAuth,
@@ -7,9 +7,9 @@ import {
   signOut,
   updateProfile,
 } from 'firebase/auth'
-import { app } from '../firebase/firebase.config'
-import axios from 'axios'
 import PropTypes from 'prop-types'
+import { createContext, useEffect, useState } from 'react'
+import { app } from '../firebase/firebase.config'
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const AuthContext = createContext(null)

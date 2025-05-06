@@ -1,7 +1,7 @@
-import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom'
-import useAuth from '../../hooks/useAuth'
 import toast from 'react-hot-toast'
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom'
 import LoadingSpinner from '../../components/Shared/LoadingSpinner'
+import useAuth from '../../hooks/useAuth'
 
 const Login = () => {
   const { signIn, loading, user, setLoading } = useAuth()
@@ -102,7 +102,7 @@ const Login = () => {
           Don&apos;t have an account yet?{' '}
           <Link
             to='/register'
-            className='hover:underline hover:text-blood text-gray-600'
+            className='hover:underline hover:text-blood text-gray-600 font-bold'
           >
             Sign up
           </Link>
