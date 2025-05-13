@@ -1,12 +1,12 @@
 import { Helmet } from 'react-helmet-async'
-import Banner from './Banner'
-import FeaturedSection from './FeaturedSection'
-import ContactUs from './ContactUs'
 import AboutUs from './AboutUs'
-import FAQSection from './FAQ'
+import Banner from './Banner'
 import BlogNewsSection from './BlogNews'
-import DonationProcess from './DonationProcess'
-import EligibilityCriteria from './EligibilityCriteria'
+import ContactUs from './ContactUs'
+import FAQSection from './FAQ'
+import FeaturedSection from './FeaturedSection'
+// import DonationProcess from './DonationProcess'
+// import EligibilityCriteria from './EligibilityCriteria'
 import JoinAsVolunteer from './JoniAsVolunteer'
 
 const Home = () => {
@@ -19,8 +19,8 @@ const Home = () => {
         <Banner />
         <FeaturedSection />
         <AboutUs />
-        <DonationProcess />
-        <EligibilityCriteria />
+        {/* <DonationProcess /> */}
+        {/* <EligibilityCriteria /> */}
         <BlogNewsSection />
         <JoinAsVolunteer />
         <FAQSection />
